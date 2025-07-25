@@ -1,0 +1,379 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:tech_news_app/screens/saved_articles_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:tech_news_app/providers/news_provider.dart';
+import 'package:tech_news_app/models/article.dart';
+
+void main() {
+  group('SavedArticlesScreen', () {
+    final testArticle = Article(
+      title: 'Saved Article',
+      description: 'This article is saved for offline reading',
+      url: 'https://example.com/saved',
+      imageUrl: 'https://example.com/saved.jpg',
+      publishedAt: DateTime(2023, 1, 15, 10, 30, 0),
+    );
+
+    Widget createWidgetUnderTest() {
+      return MaterialApp(
+        home: ChangeNotifierProvider(
+          create: (context) => NewsProvider(),
+          child: const SavedArticlesScreen(),
+        ),
+      );
+    }
+
+    testWidgets('displays app bar with title', (WidgetTester tester) async {
+      await tester.pumpWidget(createWidgetUnderTest());
+
+      // Test app bar title
+      expect(find.text('Saved Articles'), findsOneWidget);
+    });
+
+    testWidgets('displays empty state when no articles saved', (WidgetTester tester) async {
+      await tester.pumpWidget(createWidgetUnderTest());
+
+      // Empty state should be displayed
+      expect(find.text('No saved articles yet'), findsOneWidget);
+      expect(find.text('Articles you save will appear here'), findsOneWidget);
+      expect(find.byIcon(Icons.bookmark), findsOneWidget);
+    });
+
+    testWidgets('displays list of saved articles when articles are saved', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Article should be displayed
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(find.text(testArticle.description!), findsOneWidget);
+    });
+
+    testWidgets('displays formatted publication date', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Publication date should be displayed
+      expect(find.byIcon(Icons.access_time), findsOneWidget);
+      
+      // Date should be formatted correctly
+      final textFinder = find.textContaining('ago');
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets('tapping article navigates to NewsDetailScreen', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Tap on article
+      await tester.tap(find.text(testArticle.title));
+      await tester.pumpAndSettle();
+
+      // Should navigate to NewsDetailScreen
+      expect(find.text('Article'), findsOneWidget);
+    });
+
+    testWidgets('swipe to delete shows confirmation dialog', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Confirmation dialog should be displayed
+      expect(find.text('Remove from saved?'), findsOneWidget);
+      expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Remove'), findsOneWidget);
+    });
+
+    testWidgets('confirmation dialog cancels deletion when Cancel is tapped', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Tap Cancel
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Article should still be in the list
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(provider.savedArticles.length, 1);
+    });
+
+    testWidgets('confirmation dialog removes article when Remove is tapped', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
+
+      // Article should be removed
+      expect(find.text(testArticle.title), findsNothing);
+      expect(provider.savedArticles.length, 0);
+    });
+
+    testWidgets('clear all button shows confirmation dialog', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Tap clear all button
+      await tester.tap(find.text('Clear All'));
+      await tester.pumpAndSettle();
+
+      // Confirmation dialog should be displayed
+      expect(find.text('Clear all saved articles?'), findsOneWidget);
+      expect(find.text('Are you sure you want to remove all saved articles?'), findsOneWidget);
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Clear All'), findsOneWidget);
+    });
+
+    testWidgets('clear all confirmation dialog cancels when Cancel is tapped', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Tap clear all button
+      await tester.tap(find.text('Clear All'));
+      await tester.pumpAndSettle();
+
+      // Tap Cancel
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Article should still be in the list
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(provider.savedArticles.length, 1);
+    });
+
+    testWidgets('clear all confirmation dialog removes all articles when Clear All is tapped', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Tap clear all button
+      await tester.tap(find.text('Clear All'));
+      await tester.pumpAndSettle();
+
+      // Tap Clear All in dialog
+      await tester.tap(find.text('Clear All'));
+      await tester.pumpAndSettle();
+
+      // Article should be removed
+      expect(find.text(testArticle.title), findsNothing);
+      expect(provider.savedArticles.length, 0);
+    });
+
+    testWidgets('shows snackbar with undo option after deletion', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
+
+      // Snackbar should be displayed with undo option
+      expect(find.text('Article removed from saved'), findsOneWidget);
+      expect(find.text('Undo'), findsOneWidget);
+    });
+
+    testWidgets('undo snackbar restores deleted article', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
+
+      // Tap Undo
+      await tester.tap(find.text('Undo'));
+      await tester.pumpAndSettle();
+
+      // Article should be restored
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(provider.savedArticles.length, 1);
+    });
+
+    testWidgets('applies proper styling to list items', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      // Test title styling
+      final titleFinder = find.text(testArticle.title);
+      final titleWidget = tester.widget<Text>(titleFinder);
+      expect(titleWidget.style?.fontWeight, FontWeight.bold);
+      expect(titleWidget.maxLines, 2);
+      expect(titleWidget.overflow, TextOverflow.ellipsis);
+
+      // Test description styling
+      final descriptionFinder = find.text(testArticle.description!);
+      final descriptionWidget = tester.widget<Text>(descriptionFinder);
+      expect(descriptionWidget.style?.color, Colors.grey.shade600);
+      expect(descriptionWidget.maxLines, 2);
+      expect(descriptionWidget.overflow, TextOverflow.ellipsis);
+    });
+
+    testWidgets('has proper padding and margin', (WidgetTester tester) async {
+      final provider = NewsProvider();
+      provider.saveArticle(testArticle);
+      
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ChangeNotifierProvider.value(
+            value: provider,
+            child: const SavedArticlesScreen(),
+          ),
+        ),
+      );
+
+      final cardFinder = find.byType(Card);
+      final card = tester.widget<Card>(cardFinder);
+
+      // Test card margin
+      expect(card.margin, const EdgeInsets.symmetric(horizontal: 16, vertical: 8));
+    });
+  });
+}
