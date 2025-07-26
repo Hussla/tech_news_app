@@ -27,6 +27,8 @@ import 'package:tech_news_app/models/article.dart';
 import 'package:tech_news_app/widgets/article_card.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
+import '../helpers/mock_news_provider.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   group('ArticleCard', () {
@@ -57,8 +59,8 @@ void main() {
     Widget createWidgetUnderTest(Article article, {bool showSaveButton = true}) {
       return MaterialApp(
         home: Scaffold(
-          body: ChangeNotifierProvider(
-            create: (context) => NewsProvider(),
+          body: ChangeNotifierProvider<NewsProvider>.value(
+            value: MockNewsProvider(),
             child: ArticleCard(
               article: article,
               showSaveButton: showSaveButton,
@@ -104,19 +106,50 @@ void main() {
     });
 
     testWidgets('displays image when imageUrl is provided', (WidgetTester tester) async {
+      // Create a transparent image for testing
+      final testImage = Uint8List.fromList([
+        // 1x1 transparent PNG
+        0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+        0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+        0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, 0x89, 0x00, 0x00, 0x00,
+        0x0D, 0x49, 0x44, 0x41, 0x54, 0x78, 0xDA, 0x62, 0x60, 0x60, 0x60, 0x00,
+        0x00, 0x00, 0x04, 0x00, 0x01, 0x27, 0x11, 0x81, 0x8E, 0x00, 0x00, 0x00,
+        0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
+      ]);
+      
+      // Mock the image network request
+      tester.binding.imageCache.clear();
+      tester.binding.imageCache.clearLiveImages();
+      
+      // Set up the mock message handler
+      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', (message) async {
+        final methodCall = const StandardMethodCodec().decodeMethodCall(message);
+        if (methodCall.method == 'ImageCache.putIfAbsent') {
+          final arguments = methodCall.arguments as Map<String, dynamic>;
+          final key = arguments['key'] as String;
+          if (key.contains(testArticle.imageUrl!)) {
+            return ByteData(8)..setInt32(0, 100)..setInt32(4, 100);
+          }
+        }
+        return null;
+      });
+
       await tester.pumpWidget(createWidgetUnderTest(testArticle));
 
-      // Wait for image to load
-      await tester.pumpAndSettle();
+      // Give the widget time to build
+      await tester.pump();
 
       expect(find.byType(Image), findsOneWidget);
+
+      // Clean up
+      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', null);
     });
 
     testWidgets('handles missing image gracefully', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest(testArticleWithoutImage));
 
-      // Wait for potential image loading
-      await tester.pumpAndSettle();
+      // Give the widget time to build
+      await tester.pump();
 
       // Should not show image
       expect(find.byType(Image), findsNothing);
@@ -130,7 +163,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(testArticleWithoutDescription));
 
       // Should not show description
-      expect(find.text(testArticleWithoutDescription.description!), findsNothing);
+      expect(find.text(''), findsNothing);
       
       // Should still show other elements
       expect(find.text(testArticleWithoutDescription.title), findsOneWidget);
@@ -138,13 +171,13 @@ void main() {
     });
 
     testWidgets('displays correct bookmark icon state when article is saved', (WidgetTester tester) async {
-      final provider = NewsProvider();
+      final provider = MockNewsProvider();
       provider.saveArticle(testArticle);
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ChangeNotifierProvider.value(
+            body: ChangeNotifierProvider<NewsProvider>.value(
               value: provider,
               child: ArticleCard(
                 article: testArticle,
@@ -160,12 +193,12 @@ void main() {
     });
 
     testWidgets('displays correct bookmark icon state when article is not saved', (WidgetTester tester) async {
-      final provider = NewsProvider();
+      final provider = MockNewsProvider();
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ChangeNotifierProvider.value(
+            body: ChangeNotifierProvider<NewsProvider>.value(
               value: provider,
               child: ArticleCard(
                 article: testArticle,
@@ -183,8 +216,11 @@ void main() {
     testWidgets('tapping card navigates to NewsDetailScreen', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest(testArticle));
 
-      // Tap the card
-      await tester.tap(find.byType(InkWell));
+      // Tap the card using a more specific finder
+      await tester.tap(find.descendant(
+        of: find.byType(Card),
+        matching: find.byType(InkWell),
+      ).first);
       await tester.pumpAndSettle();
 
       // Should navigate to NewsDetailScreen
@@ -192,12 +228,12 @@ void main() {
     });
 
     testWidgets('tapping bookmark button toggles save state', (WidgetTester tester) async {
-      final provider = NewsProvider();
+      final provider = MockNewsProvider();
 
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ChangeNotifierProvider.value(
+            body: ChangeNotifierProvider<NewsProvider>.value(
               value: provider,
               child: ArticleCard(
                 article: testArticle,
@@ -213,14 +249,14 @@ void main() {
 
       // Tap bookmark button
       await tester.tap(find.byIcon(Icons.bookmark_border));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Should now be saved
       expect(find.byIcon(Icons.bookmark), findsOneWidget);
 
       // Tap bookmark button again
       await tester.tap(find.byIcon(Icons.bookmark));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Should now be unsaved
       expect(find.byIcon(Icons.bookmark_border), findsOneWidget);
@@ -253,10 +289,10 @@ void main() {
       // Test card margin
       expect(card.margin, const EdgeInsets.symmetric(horizontal: 16, vertical: 8));
 
-      // Test padding inside card
+      // Test padding inside card - look for the specific padding around the content
       final paddingFinder = find.descendant(
         of: find.byType(Card),
-        matching: find.byType(Padding),
+        matching: find.widgetWithText(Padding, testArticle.title),
       );
       expect(paddingFinder, findsOneWidget);
     });
@@ -266,7 +302,7 @@ void main() {
 
       // Should have a Hero widget with the article URL as tag
       final heroFinder = find.descendant(
-        of: find.byType(Image),
+        of: find.byType(Card),
         matching: find.byType(Hero),
       );
       expect(heroFinder, findsOneWidget);

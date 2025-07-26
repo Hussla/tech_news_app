@@ -35,11 +35,17 @@ import 'package:mockito/mockito.dart';
 /// 
 /// This function configures Firebase Auth mocking to avoid authentication
 /// issues during testing.
-void setupFirebaseAuthMocks() {
-  // This function is called to set up Firebase Auth mocks
-  // The firebase_auth_mocks package handles the implementation
-  // No additional setup is needed as the MockFirebaseAuth is configured
-  // in the setupTestEnvironment function
+Future<void> setupFirebaseAuthMocks() async {
+  // Initialize Firebase for testing
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+  
+  // Set up Firebase Auth with mock implementation
+  FirebaseAuth auth = MockFirebaseAuth();
+  FirebaseAuthPlatform.instance = auth;
 }
 
 /// Initializes the database for testing.
@@ -73,6 +79,11 @@ Future<void> setupTestEnvironment() async {
   
   // Enable testing mode to prevent database operations
   NewsProvider.setTestingMode(true);
+  
+  // Ensure database factory is initialized
+  if (databaseFactory == null) {
+    setupDatabaseForTesting();
+  }
 }
 
 /// Runs a test function with fake async to control timers.
