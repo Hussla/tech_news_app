@@ -33,8 +33,8 @@ import '../helpers/mock_news_provider.dart';
 import '../test_setup.dart';
 
 void main() {
-  setUpAll(() {
-    setupTestEnvironment();
+  setUpAll(() async {
+    await setupTestEnvironment();
   });
 
   tearDown(() {

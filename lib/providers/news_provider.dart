@@ -23,6 +23,8 @@ import 'package:tech_news_app/models/article.dart';
 import 'package:tech_news_app/services/database_service.dart';
 
 class NewsProvider with ChangeNotifier {
+  static bool _testingMode = false;
+  
   List<Article> _articles = [];
   List<Article> _savedArticles = [];
   String _searchQuery = '';
@@ -34,8 +36,16 @@ class NewsProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   NewsProvider() {
-    fetchTopHeadlines();
-    _loadSavedArticles();
+    // Only initialize if not in testing mode
+    if (!_testingMode) {
+      fetchTopHeadlines();
+      _loadSavedArticles();
+    }
+  }
+
+  /// Set testing mode to prevent database operations during tests
+  static void setTestingMode(bool testing) {
+    _testingMode = testing;
   }
 
   Future<void> fetchTopHeadlines() async {

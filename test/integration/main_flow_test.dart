@@ -20,8 +20,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/main.dart';
 import 'package:tech_news_app/models/article.dart';
+import '../test_setup.dart';
 
 void main() {
+  setUpAll(() async {
+    await setupTestEnvironment();
+  });
+
   group('Main User Flows', () {
     final testArticle = Article(
       title: 'Integration Test Article',
@@ -36,8 +41,13 @@ void main() {
     });
 
     testWidgets('Search Flow', (WidgetTester tester) async {
-      // Start the app
-      await tester.pumpWidget(const MyApp());
+      // Start the app using test setup
+      await tester.pumpWidget(
+        createTestApp(
+          child: const MyApp(),
+          useMockProvider: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Wait for initial data to load
@@ -81,8 +91,13 @@ void main() {
     });
 
     testWidgets('Article Reading Flow', (WidgetTester tester) async {
-      // Start the app
-      await tester.pumpWidget(const MyApp());
+      // Start the app using test setup
+      await tester.pumpWidget(
+        createTestApp(
+          child: const MyApp(),
+          useMockProvider: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Wait for initial data to load
@@ -115,8 +130,13 @@ void main() {
     });
 
     testWidgets('Saved Articles Flow', (WidgetTester tester) async {
-      // Start the app
-      await tester.pumpWidget(const MyApp());
+      // Start the app using test setup
+      await tester.pumpWidget(
+        createTestApp(
+          child: const MyApp(),
+          useMockProvider: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Wait for initial data to load
@@ -164,8 +184,13 @@ void main() {
     });
 
     testWidgets('Voice Search Flow', (WidgetTester tester) async {
-      // Start the app
-      await tester.pumpWidget(const MyApp());
+      // Start the app using test setup
+      await tester.pumpWidget(
+        createTestApp(
+          child: const MyApp(),
+          useMockProvider: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Wait for initial data to load
@@ -203,8 +228,13 @@ void main() {
     });
 
     testWidgets('QR Code Scanner Flow', (WidgetTester tester) async {
-      // Start the app
-      await tester.pumpWidget(const MyApp());
+      // Start the app using test setup
+      await tester.pumpWidget(
+        createTestApp(
+          child: const MyApp(),
+          useMockProvider: true,
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Wait for initial data to load

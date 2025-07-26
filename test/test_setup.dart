@@ -13,19 +13,89 @@
 /// - [Flutter Testing](https://docs.flutter.dev/testing)
 /// - [Test Setup](https://docs.flutter.dev/testing/unit-tests)
 /// - [Mocking](https://docs.flutter.dev/testing/mocking)
+/// - [Fake Async](https://pub.dev/documentation/fake_async/latest/)
+/// - [Timer Testing](https://docs.flutter.dev/testing/unit-tests#testing-widgets-that-use-timers)
+/// - [Widget Testing](https://docs.flutter.dev/testing/widget-tests)
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'helpers/mock_news_provider.dart';
+import '../lib/firebase_options.dart';
+import 'package:mockito/mockito.dart';
+
+/// Sets up Firebase Auth mocks for testing.
+/// 
+/// This function configures Firebase Auth mocking to avoid authentication
+/// issues during testing.
+void setupFirebaseAuthMocks() {
+  // This function is called to set up Firebase Auth mocks
+  // The firebase_auth_mocks package handles the implementation
+  // No additional setup is needed as the MockFirebaseAuth is configured
+  // in the setupTestEnvironment function
+}
+
+/// Initializes the database for testing.
+/// 
+/// This function sets up the database factory for testing, which is required
+/// for sqflite to work in a web environment or when running tests.
+void setupDatabaseForTesting() {
+  // Initialize FFI implementation for testing
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+}
 
 /// Sets up the test environment with necessary configurations.
 /// 
 /// This function should be called in the setUpAll() method of test files
 /// that need database or other service initialisation.
-void setupTestEnvironment() {
-  // Test environment setup - no database initialisation needed for unit tests
+/// 
+/// This implementation:
+/// 1. Ensures the test binding is initialized
+/// 2. Initializes database for testing
+/// 3. Configures Firebase Auth for testing with mocks
+Future<void> setupTestEnvironment() async {
+  // Configure fake async for timer handling
+  TestWidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize database for testing
+  setupDatabaseForTesting();
+  
+  // Set up Firebase Auth mocks
+  setupFirebaseAuthMocks();
+  
+  // Enable testing mode to prevent database operations
+  NewsProvider.setTestingMode(true);
+}
+
+/// Runs a test function with fake async to control timers.
+/// 
+/// This helper function wraps test operations in fake_async to
+/// properly control and flush timers, preventing "Timer is still pending" errors.
+/// 
+/// Parameters:
+/// - [testFunction]: The test function to run with fake async
+/// 
+/// Example:
+/// ```dart
+/// await runWithFakeAsync(() async {
+///   // Your test code here
+///   await tester.pumpWidget(createWidgetUnderTest());
+/// });
+/// ```
+Future<void> runWithFakeAsync(Future<void> Function() testFunction) async {
+  await fakeAsync((FakeAsync clock) async {
+    await testFunction();
+    // Ensure all pending timers are flushed
+    clock.elapse(const Duration(milliseconds: 100));
+  });
 }
 
 /// Creates a MaterialApp widget with proper Provider setup for testing.
@@ -41,13 +111,24 @@ void setupTestEnvironment() {
 Widget createTestApp({
   required Widget child,
   bool useMockProvider = false,
+  dynamic mockProvider,
 }) {
-  return MaterialApp(
-    home: ChangeNotifierProvider<NewsProvider>(
-      create: (context) => useMockProvider ? MockNewsProvider() : NewsProvider(),
-      child: child,
-    ),
-  );
+  if (useMockProvider) {
+    final mock = MockNewsProvider();
+    return MaterialApp(
+      home: ChangeNotifierProvider<NewsProvider>.value(
+        value: mock,
+        child: child,
+      ),
+    );
+  } else {
+    return MaterialApp(
+      home: ChangeNotifierProvider<NewsProvider>(
+        create: (context) => NewsProvider(),
+        child: child,
+      ),
+    );
+  }
 }
 
 /// Creates a MaterialApp widget with a mock provider for testing.

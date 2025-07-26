@@ -47,6 +47,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  network_image_mock: ^2.1.1
+  firebase_auth_mocks: ^0.14.2
+  sqflite_common_ffi: ^2.3.4
 
 flutter:
   uses-material-design: true
