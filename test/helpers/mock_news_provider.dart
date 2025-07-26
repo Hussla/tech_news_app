@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:tech_news_app/models/article.dart';
+import 'package:tech_news_app/providers/news_provider.dart';
 
 /// Mock NewsProvider for testing purposes.
 /// 
-/// This class extends ChangeNotifier and provides setters for all properties
-/// to allow tests to control the state without triggering actual API calls.
-class MockNewsProvider with ChangeNotifier {
+/// This class extends NewsProvider and overrides methods to prevent
+/// actual API calls and timer issues in tests.
+class MockNewsProvider extends NewsProvider {
   List<Article> _articles = [];
   List<Article> _savedArticles = [];
   String _searchQuery = '';
@@ -36,15 +37,18 @@ class MockNewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   Future<void> fetchTopHeadlines() async {
-    // Mock implementation - no actual API call
+    // Mock implementation - no actual API call or timer
   }
 
+  @override
   Future<void> searchNews(String query) async {
     _searchQuery = query;
     notifyListeners();
   }
 
+  @override
   Future<void> saveArticle(Article article) async {
     if (!_savedArticles.any((a) => a.url == article.url)) {
       _savedArticles.add(article);
@@ -52,12 +56,24 @@ class MockNewsProvider with ChangeNotifier {
     }
   }
 
+  @override
   Future<void> removeSavedArticle(String url) async {
     _savedArticles.removeWhere((article) => article.url == url);
     notifyListeners();
   }
 
+  @override
   bool isArticleSaved(String url) {
     return _savedArticles.any((article) => article.url == url);
+  }
+
+  @override
+  Future<void> loadSavedArticles() async {
+    // Mock implementation - no database operations
+  }
+
+  @override
+  Future<void> fetchNewsByCategory(String category) async {
+    // Mock implementation - no actual API call
   }
 }

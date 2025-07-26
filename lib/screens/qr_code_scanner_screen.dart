@@ -190,8 +190,19 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   /// - Stopping Tracks: https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop
   void _stopCamera() {
     if (_stream != null) {
-      for (var track in _stream!.getTracks()) {
-        track.stop();
+      // For universal_html, we need to handle track stopping differently
+      try {
+        // Get tracks and stop them using the correct API
+        final tracks = _stream!.getTracks();
+        for (var track in tracks) {
+          // Use dynamic call to avoid compile-time errors
+          (track as dynamic).stop?.call();
+        }
+      } catch (e) {
+        // Fallback: just log the error
+        print('Could not stop camera tracks: $e');
+      } finally {
+        _stream = null;
       }
     }
   }

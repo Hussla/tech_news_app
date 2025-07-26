@@ -1,3 +1,23 @@
+/// LoginScreen widget tests for the Tech News application.
+/// 
+/// This test file validates the LoginScreen's functionality including:
+/// - App title and logo display
+/// - Google Sign-In button display and functionality
+/// - Guest login button display and functionality
+/// - Navigation to HomeScreen
+/// - Snackbar display for Google Sign-In
+/// - UI styling and layout
+/// - Responsive layout
+/// 
+/// 
+/// References:
+/// - [Widget Testing](https://docs.flutter.dev/testing/widget-tests)
+/// - [Testing User Interactions](https://docs.flutter.dev/testing/user-interaction)
+/// - [ElevatedButton](https://api.flutter.dev/flutter/material/ElevatedButton-class.html)
+/// - [Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html)
+/// - [Snackbar](https://api.flutter.dev/flutter/material/SnackBar-class.html)
+/// - [Gradient Background](https://api.flutter.dev/flutter/painting/Gradient-class.html)
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/screens/auth/login_screen.dart';

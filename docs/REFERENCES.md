@@ -76,6 +76,21 @@ This document provides a comprehensive list of all references used in the Tech N
 - [Platform Views](https://docs.flutter.dev/platform-integration/web/web-images#using-html-elements) - Flutter documentation for using HTML elements in Flutter web
 - [Web Images](https://docs.flutter.dev/platform-integration/web/web-images) - Flutter guide on handling images in web applications
 
+## 📄 **Testing Documentation**
+
+### **Testing Frameworks**
+- [Flutter Testing Guide](https://docs.flutter.dev/testing) - Official Flutter guide on testing Flutter applications
+- [Widget Testing](https://docs.flutter.dev/testing/widget-tests) - Flutter guide on testing UI components
+- [Integration Testing](https://docs.flutter.dev/testing/integration-tests) - Flutter guide on testing complete user flows
+- [flutter_test Package](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html) - Flutter's built-in testing framework
+- [Test Coverage](https://docs.flutter.dev/testing/code-coverage) - Flutter guide on measuring test coverage
+
+### **Testing Best Practices**
+- [Arrange-Act-Assert Pattern](https://www.artofunittesting.com/phases/arrange-act-assert) - Standard pattern for structuring tests
+- [Mocking Dependencies](https://pub.dev/packages/mockito) - Dart package for creating mock objects in tests
+- [Fake Async](https://pub.dev/packages/fake_async) - Dart package for controlling asynchronous operations in tests
+- [Golden File Testing](https://docs.flutter.dev/testing/ui-testing#golden-file-testing) - Flutter technique for testing UI appearance
+
 ## 📄 **Additional Resources**
 - [Flutter App Structure](https://docs.flutter.dev/development/ui/interactive) - Flutter guide on application structure
 - [Material Design in Flutter](https://docs.flutter.dev/design/material) - Flutter guide on implementing Material Design

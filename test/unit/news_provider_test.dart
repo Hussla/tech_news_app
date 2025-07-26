@@ -1,3 +1,24 @@
+/// NewsProvider tests for the Tech News application.
+/// 
+/// This test file validates the NewsProvider's functionality including:
+/// - Initialisation state
+/// - Fetching top headlines
+/// - Searching for articles
+/// - Saving and removing articles
+/// - Checking saved article status
+/// - Search results for specific topics
+/// 
+/// The tests use mock data to simulate API responses without network dependencies,
+/// ensuring fast and reliable test execution. 
+/// 
+/// References:
+/// - [Flutter Testing Guide](https://docs.flutter.dev/testing)
+/// - [Unit Testing](https://docs.flutter.dev/testing#unit-tests)
+/// - [Mocking Dependencies](https://pub.dev/packages/mockito)
+/// - [State Management with Provider](https://docs.flutter.dev/data-and-backend/state-mgmt/simple)
+/// - [Future and Async](https://dart.dev/codelabs/async-await)
+/// - [Error Handling](https://dart.dev/guides/language/effective-dart/usage#do-use-on-clauses-in-catch-statements-for-flow-control)
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:tech_news_app/models/article.dart';
@@ -16,19 +37,19 @@ void main() {
       newsProvider.dispose();
     });
 
-    test('initializes with articles after initial fetch', () {
+    test('initialises with articles after initial fetch', () {
       expect(newsProvider.articles, isNotEmpty);
     });
 
-    test('initializes with empty saved articles list', () {
+    test('initialises with empty saved articles list', () {
       expect(newsProvider.savedArticles, isEmpty);
     });
 
-    test('initializes with empty search query', () {
+    test('initialises with empty search query', () {
       expect(newsProvider.searchQuery, isEmpty);
     });
 
-    test('initializes with isLoading false after initial fetch', () {
+    test('initialises with isLoading false after initial fetch', () {
       expect(newsProvider.isLoading, isFalse);
     });
 

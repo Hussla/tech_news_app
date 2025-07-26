@@ -1,3 +1,25 @@
+/// SavedArticlesScreen widget tests for the Tech News application.
+/// 
+/// This test file validates the SavedArticlesScreen's functionality including:
+/// - App bar display with title
+/// - Empty state display when no articles saved
+/// - List of saved articles display
+/// - Publication date formatting
+/// - Navigation to NewsDetailScreen
+/// - Swipe to delete with confirmation dialog
+/// - Clear all button with confirmation dialog
+/// - Snackbar with undo option
+/// - UI styling and layout
+/// 
+/// 
+/// References:
+/// - [Widget Testing](https://docs.flutter.dev/testing/widget-tests)
+/// - [Testing User Interactions](https://docs.flutter.dev/testing/user-interaction)
+/// - [Dismissible Widget](https://api.flutter.dev/flutter/widgets/Dismissible-class.html)
+/// - [AlertDialog](https://api.flutter.dev/flutter/material/AlertDialog-class.html)
+/// - [Snackbar](https://api.flutter.dev/flutter/material/SnackBar-class.html)
+/// - [Card Widget](https://api.flutter.dev/flutter/material/Card-class.html)
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/screens/saved_articles_screen.dart';

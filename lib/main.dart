@@ -58,7 +58,7 @@ void main() async {
     // Initialise local notification service for displaying notifications
     // This service handles both local and push notifications in a unified way
     // Reference: https://pub.dev/packages/flutter_local_notifications
-    await LocalNotificationService.initialise();
+    await LocalNotificationService.initialize();
     
     // Handle notification tap events when the app is opened from a notification
     // This listener is triggered when a user taps on a notification

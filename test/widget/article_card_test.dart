@@ -1,3 +1,26 @@
+/// ArticleCard widget tests for the Tech News application.
+/// 
+/// This test file validates the ArticleCard's functionality including:
+/// - Display of article title, description, and publication date
+/// - Bookmark button display and state
+/// - Image display and handling of missing images
+/// - Handling of missing descriptions
+/// - Navigation to article detail screen
+/// - Bookmark state toggling
+/// - Text styling and overflow handling
+/// - Padding and margin
+/// - Hero animation with correct tag
+/// 
+/// The tests use a NewsProvider to manage the saved articles state.
+/// 
+/// References:
+/// - [Widget Testing](https://docs.flutter.dev/testing/widget-tests)
+/// - [Testing User Interactions](https://docs.flutter.dev/testing/user-interaction)
+/// - [Hero Animations](https://docs.flutter.dev/ui/animations/hero-animations)
+/// - [Text Overflow](https://api.flutter.dev/flutter/painting/TextOverflow-class.html)
+/// - [Image Widget](https://api.flutter.dev/flutter/widgets/Image-class.html)
+/// - [InkWell](https://api.flutter.dev/flutter/material/InkWell-class.html)
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/models/article.dart';

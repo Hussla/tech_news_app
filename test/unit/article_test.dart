@@ -1,3 +1,23 @@
+/// Article model tests for the Tech News application.
+/// 
+/// This test file validates the Article model's functionality including:
+/// - JSON serialization and deserialization
+/// - Handling of null values and missing fields
+/// - Object equality and hashing
+/// - String representation
+/// - Date formatting
+/// 
+/// The tests follow the Arrange-Act-Assert pattern and use meaningful test names
+/// to clearly describe the expected behaviour.
+/// 
+/// References:
+/// - [Flutter Testing Guide](https://docs.flutter.dev/testing)
+/// - [Widget Testing](https://docs.flutter.dev/testing/widget-tests)
+/// - [Test Coverage](https://docs.flutter.dev/testing/code-coverage)
+/// - [JSON Serialisation](https://docs.flutter.dev/data-and-backend/json)
+/// - [Dart DateTime](https://api.dart.dev/stable/dart-core/DateTime-class.html)
+/// - [Dart Equality](https://dart.dev/guides/language/effective-dart/usage#equality)
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/models/article.dart';
 import 'package:intl/intl.dart';
