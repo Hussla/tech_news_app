@@ -490,16 +490,20 @@ All code in this application includes comprehensive documentation with reference
 - Plugin documentation for all third-party packages
 - UI/UX best practices and Material Design guidelines
 
-## Testing Documentation
+## Project Documentation
 
-For detailed information about the testing strategy and implementation, see the [docs/TESTING.md](docs/TESTING.md) file, which includes:
-- Testing strategy and approach
-- Unit test coverage and examples
-- Widget test infrastructure
-- Integration test scenarios
-- Test execution commands
-- Test results and coverage
-- Future improvements to the testing suite
+The project includes comprehensive documentation to help understand the architecture and implementation:
+
+- [walkthrough.md](walkthrough.md): Detailed walkthrough of the application's architecture, implementation, and design decisions
+- [report.md](report.md): Project report with additional insights and analysis
+- [docs/TESTING.md](docs/TESTING.md): Detailed information about the testing strategy and implementation, including:
+  - Testing strategy and approach
+  - Unit test coverage and examples
+  - Widget test infrastructure
+  - Integration test scenarios
+  - Test execution commands
+  - Test results and coverage
+  - Future improvements to the testing suite
 
 ## Publishing Requirements
 
