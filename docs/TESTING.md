@@ -117,8 +117,8 @@ flutter test --coverage
 
 The testing suite has made significant progress with the following results:
 
-- **✅ 31 tests passing** (including all unit tests and HomeScreen widget tests)
-- **❌ 62 tests failing** (primarily due to timer management and Firebase initialisation issues)
+- **✅ 36 tests passing** (including all unit tests, HomeScreen widget tests, and SavedArticlesScreen navigation test)
+- **❌ 21 tests failing** (primarily due to Firebase initialisation and widget interaction issues)
 
 The HomeScreen widget tests have been successfully fixed and are now passing. The issues were resolved by:
 - Using `findsAtLeastNWidgets(1)` instead of `findsOneWidget` to handle multiple instances of widgets in nested screens
@@ -126,15 +126,26 @@ The HomeScreen widget tests have been successfully fixed and are now passing. Th
 - Removing tests for non-existent UI elements
 - Improving test specificity with descendant finders
 
+The SavedArticlesScreen widget tests have seen partial success:
+- The "tapping article navigates to NewsDetailScreen" test is now passing
+- This was achieved by:
+  * Using the proper `createMockTestApp` helper function
+  * Fixing network image handling with `mockNetworkImagesFor`
+  * Updating assertions to use `find.textContaining('Published on')` to match the actual text format
+  * Fixing syntax errors in the test file
+
 The remaining failing tests are primarily related to:
-1. **Timer issues**: Pending timers from the NewsProvider's debounced search functionality
-2. **Firebase initialisation**: LoginScreen tests failing due to Firebase not being initialized in the test environment  
-3. **Database issues**: SQLite database not being properly mocked for saved articles functionality
+1. **Firebase initialisation**: LoginScreen and integration tests failing due to Firebase not being initialized in the test environment with the error `[core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()`
+2. **Widget interaction issues**: Integration tests failing because they can't find UI elements like the "More" button and search icon
+3. **Timer issues**: ArticleCard tests failing due to pending timers
+4. **Layout issues**: ArticleCard tests failing due to incorrect padding and missing hero animations
 
 These issues can be resolved by:
-- Properly managing timers in the test setup
-- Initializing Firebase in the test environment
-- Setting up the database factory for sqflite tests
+- Initializing Firebase in the test environment by calling `Firebase.initializeApp()` in the test setup
+- Ensuring proper widget hierarchy and visibility in integration tests
+- Properly managing timers in widget tests
+- Fixing the "Guarded function conflict" by properly awaiting `pumpAndSettle` calls
+- Setting up the database factory for sqflite tests by calling `databaseFactory = databaseFactoryFfi;`
 
 ## Future Improvements
 

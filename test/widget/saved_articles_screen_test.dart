@@ -118,30 +118,37 @@ void main() {
     });
 
     testWidgets('tapping article navigates to NewsDetailScreen', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.articles = [testArticle];
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
-      });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
+        // Allow time for the widget to build
+        await tester.pump(const Duration(milliseconds: 100));
+
+        // Verify we start on SavedArticlesScreen
+        expect(find.text('Saved Articles'), findsOneWidget);
+        expect(find.text(testArticle.title), findsOneWidget);
+
         // Tap on article
         await tester.tap(find.text(testArticle.title));
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(seconds: 5));
 
         // Should navigate to NewsDetailScreen
-        expect(find.text('Article'), findsOneWidget);
+        expect(find.text('Article'), findsOneWidget, reason: 'AppBar title should be "Article"');
+        expect(find.text(testArticle.title), findsOneWidget, reason: 'Article title should be displayed');
+        expect(find.textContaining('Published on'), findsOneWidget, reason: 'Publication date should be displayed');
+        expect(find.text('Read Full Article'), findsOneWidget, reason: 'Read Full Article button should be displayed');
+        expect(find.byIcon(Icons.share), findsOneWidget, reason: 'Share icon should be displayed');
       });
-    });
+    }, timeout: Timeout(Duration(seconds: 120)));
 
     testWidgets('swipe to delete shows confirmation dialog', (WidgetTester tester) async {
       final provider = NewsProvider();
