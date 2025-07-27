@@ -4,9 +4,9 @@ This document tracks all known testing issues in the Tech News app. Each issue i
 
 ## Current Status
 - Total tests: 93
-- Passing tests: 55
-- Failing tests: 38
-- Pass rate: 59%
+- Passing tests: 59
+- Failing tests: 34
+- Pass rate: 63%
 
 ## Issue List
 
