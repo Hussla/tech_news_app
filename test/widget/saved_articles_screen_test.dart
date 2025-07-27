@@ -52,14 +52,14 @@ void main() {
     );
 
     Widget createWidgetUnderTest() {
-      return createTestApp(
+      return createMockTestApp(
         child: const SavedArticlesScreen(),
-        useMockProvider: true,
       );
     }
 
     testWidgets('displays app bar with title', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
 
       // Test app bar title
       expect(find.text('Saved Articles'), findsOneWidget);
@@ -67,6 +67,7 @@ void main() {
 
     testWidgets('displays empty state when no articles saved', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
 
       // Empty state should be displayed
       expect(find.text('No saved articles yet'), findsOneWidget);
@@ -75,16 +76,14 @@ void main() {
     });
 
     testWidgets('displays list of saved articles when articles are saved', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -95,16 +94,14 @@ void main() {
     });
 
     testWidgets('displays formatted publication date', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -151,134 +148,117 @@ void main() {
     }, timeout: Timeout(Duration(seconds: 120)));
 
     testWidgets('swipe to delete shows confirmation dialog', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
-        // Allow time for animations
-        await tester.pumpAndSettle();
+      // Allow time for animations
+      await tester.pumpAndSettle();
 
-        // Swipe to delete
-        await tester.fling(
-          find.text(testArticle.title),
-          const Offset(-500, 0),
-          1000,
-        );
-        
-        // Allow time for swipe animation
-        await tester.pumpAndSettle();
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      
+      // Allow time for swipe animation
+      await tester.pumpAndSettle();
 
-        // Confirmation dialog should be displayed
-        expect(find.text('Remove from saved?'), findsOneWidget);
-        expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
-        expect(find.text('Cancel'), findsOneWidget);
-        expect(find.text('Remove'), findsOneWidget);
-      });
+      // Confirmation dialog should be displayed
+      expect(find.text('Remove from saved?'), findsOneWidget);
+      expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Remove'), findsOneWidget);
     });
 
     testWidgets('confirmation dialog cancels deletion when Cancel is tapped', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
-        // Allow time for animations
-        await tester.pumpAndSettle();
+      // Allow time for animations
+      await tester.pumpAndSettle();
 
-        // Swipe to delete
-        await tester.fling(
-          find.text(testArticle.title),
-          const Offset(-500, 0),
-          1000,
-        );
-        
-        // Allow time for swipe animation
-        await tester.pumpAndSettle();
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      
+      // Allow time for swipe animation
+      await tester.pumpAndSettle();
 
-        // Tap Cancel
-        await tester.tap(find.text('Cancel'));
-        await tester.pumpAndSettle();
+      // Tap Cancel
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
 
-        // Article should still be in the list
-        expect(find.text(testArticle.title), findsOneWidget);
-        expect(provider.savedArticles.length, 1);
-      });
+      // Article should still be in the list
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(provider.savedArticles.length, 1);
     });
 
     testWidgets('confirmation dialog removes article when Remove is tapped', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
-        // Allow time for animations
-        await tester.pumpAndSettle();
+      // Allow time for animations
+      await tester.pumpAndSettle();
 
-        // Swipe to delete
-        await tester.fling(
-          find.text(testArticle.title),
-          const Offset(-500, 0),
-          1000,
-        );
-        
-        // Allow time for swipe animation
-        await tester.pumpAndSettle();
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      
+      // Allow time for swipe animation
+      await tester.pumpAndSettle();
 
-        // Tap Remove
-        await tester.tap(find.text('Remove'));
-        await tester.pumpAndSettle();
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
 
-        // Article should be removed
-        expect(find.text(testArticle.title), findsNothing);
-        expect(provider.savedArticles.length, 0);
-      });
+      // Article should be removed
+      expect(find.text(testArticle.title), findsNothing);
+      expect(provider.savedArticles.length, 0);
     });
 
     testWidgets('clear all button shows confirmation dialog', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -295,16 +275,14 @@ void main() {
     });
 
     testWidgets('clear all confirmation dialog cancels when Cancel is tapped', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -323,16 +301,14 @@ void main() {
     });
 
     testWidgets('clear all confirmation dialog removes all articles when Clear All is tapped', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -351,90 +327,78 @@ void main() {
     });
 
     testWidgets('shows snackbar with undo option after deletion', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
-        // Swipe to delete
-        await tester.fling(
-          find.text(testArticle.title),
-          const Offset(-500, 0),
-          1000,
-        );
-        await tester.pumpAndSettle();
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
 
-        // Tap Remove
-        await tester.tap(find.text('Remove'));
-        await tester.pumpAndSettle();
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
 
-        // Snackbar should be displayed with undo option
-        expect(find.text('Article removed from saved'), findsOneWidget);
-        expect(find.text('Undo'), findsOneWidget);
-      });
+      // Snackbar should be displayed with undo option
+      expect(find.text('Article removed from saved'), findsOneWidget);
+      expect(find.text('Undo'), findsOneWidget);
     });
 
     testWidgets('undo snackbar restores deleted article', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
 
-      // Use fake async to control timers
-      await runWithFakeAsync(() async {
-        // Swipe to delete
-        await tester.fling(
-          find.text(testArticle.title),
-          const Offset(-500, 0),
-          1000,
-        );
-        await tester.pumpAndSettle();
+      // Swipe to delete
+      await tester.fling(
+        find.text(testArticle.title),
+        const Offset(-500, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
 
-        // Tap Remove
-        await tester.tap(find.text('Remove'));
-        await tester.pumpAndSettle();
+      // Tap Remove
+      await tester.tap(find.text('Remove'));
+      await tester.pumpAndSettle();
 
-        // Tap Undo
-        await tester.tap(find.text('Undo'));
-        await tester.pumpAndSettle();
+      // Tap Undo
+      await tester.tap(find.text('Undo'));
+      await tester.pumpAndSettle();
 
-        // Article should be restored
-        expect(find.text(testArticle.title), findsOneWidget);
-        expect(provider.savedArticles.length, 1);
-      });
+      // Article should be restored
+      expect(find.text(testArticle.title), findsOneWidget);
+      expect(provider.savedArticles.length, 1);
     });
 
     testWidgets('applies proper styling to list items', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });
@@ -455,16 +419,14 @@ void main() {
     });
 
     testWidgets('has proper padding and margin', (WidgetTester tester) async {
-      final provider = NewsProvider();
-      provider.saveArticle(testArticle);
+      final provider = MockNewsProvider();
+      provider.savedArticles = [testArticle];
       
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: ChangeNotifierProvider.value(
-              value: provider,
-              child: const SavedArticlesScreen(),
-            ),
+          createMockTestApp(
+            child: const SavedArticlesScreen(),
+            mockProvider: provider,
           ),
         );
       });

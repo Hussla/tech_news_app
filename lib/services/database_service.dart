@@ -48,7 +48,7 @@ class DatabaseService {
   static const String _databaseName = 'tech_news.db';
 
   /// The version of the database schema
-  static const int _databaseVersion = 1;
+  static const int _databaseVersion = 2;
 
   /// The name of the table storing saved articles
   static const String _table = 'saved_articles';
@@ -58,8 +58,8 @@ class DatabaseService {
   static const String columnDescription = 'description';
   static const String columnContent = 'content';
   static const String columnUrl = 'url';
-  static const String columnImageUrl = 'image_url';
-  static const String columnPublishedAt = 'published_at';
+  static const String columnImageUrl = 'urlToImage';
+  static const String columnPublishedAt = 'publishedAt';
 
   /// Private constructor to prevent direct instantiation.
   /// 
@@ -136,7 +136,27 @@ class DatabaseService {
       path,
       version: _databaseVersion,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
+  }
+
+  /// Handles database schema upgrades when the version changes.
+  /// 
+  /// This private method is called by the openDatabase function when the
+  /// database version is increased. It ensures that existing databases
+  /// are properly upgraded to the new schema.
+  /// 
+  /// For version 2, it adds the urlToImage column if it doesn't exist.
+  /// 
+  /// The method is asynchronous and returns a Future to handle the
+  /// asynchronous nature of database operations.
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2 && newVersion >= 2) {
+      // Add urlToImage column for version 2
+      await db.execute('ALTER TABLE $_table ADD COLUMN $columnImageUrl TEXT');
+      // Add publishedAt column if it doesn't exist
+      await db.execute('ALTER TABLE $_table ADD COLUMN $columnPublishedAt TEXT');
+    }
   }
 
   /// Creates the database table schema when the database is first created.

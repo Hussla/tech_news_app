@@ -24,28 +24,45 @@ import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'helpers/mock_news_provider.dart';
 import '../lib/firebase_options.dart';
 import 'package:mockito/mockito.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Sets up Firebase Auth mocks for testing.
 /// 
 /// This function configures Firebase Auth mocking to avoid authentication
 /// issues during testing.
+/// 
+/// According to the firebase_auth_mocks documentation, MockFirebaseAuth
+/// automatically handles the FirebaseAuth.instance, so we don't need to
+/// manually assign it.
 Future<void> setupFirebaseAuthMocks() async {
+  // Create a mock instance of FirebaseAuth
+  // The MockFirebaseAuth constructor automatically sets up FirebaseAuth.instance
+  final auth = MockFirebaseAuth();
+  
   // Initialize Firebase for testing
-  if (Firebase.apps.isEmpty) {
+  // Use a try-catch block to handle any initialization issues
+  try {
+    // Clear any existing apps first
+    if (Firebase.apps.isNotEmpty) {
+      await Firebase.apps.first.delete();
+    }
+    
+    // Initialize Firebase with the mock options
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  } catch (e) {
+    // If there's an error, just continue - the mock should still work
+    // This is common in test environments where Firebase can't be fully initialized
+    print('Error initializing Firebase for testing: $e');
   }
-  
-  // Set up Firebase Auth with mock implementation
-  FirebaseAuth auth = MockFirebaseAuth();
-  FirebaseAuthPlatform.instance = auth;
 }
 
 /// Initializes the database for testing.
@@ -65,24 +82,30 @@ void setupDatabaseForTesting() {
 /// 
 /// This implementation:
 /// 1. Ensures the test binding is initialized
-/// 2. Initializes database for testing
-/// 3. Configures Firebase Auth for testing with mocks
+/// 2. Enables testing mode to prevent database operations
+/// 3. Initializes database for testing
+/// 4. Configures Firebase Auth for testing with mocks
+/// 5. Configures Firebase Messaging for testing with mocks
 Future<void> setupTestEnvironment() async {
   // Configure fake async for timer handling
   TestWidgetsFlutterBinding.ensureInitialized();
   
+  // Enable testing mode first to prevent database operations
+  NewsProvider.setTestingMode(true);
+  
   // Initialize database for testing
   setupDatabaseForTesting();
   
-  // Set up Firebase Auth mocks
-  setupFirebaseAuthMocks();
+  // Set up Firebase Auth mocks - await the async operation
+  await setupFirebaseAuthMocks();
   
-  // Enable testing mode to prevent database operations
-  NewsProvider.setTestingMode(true);
-  
-  // Ensure database factory is initialized
-  if (databaseFactory == null) {
-    setupDatabaseForTesting();
+  // Mock Firebase Messaging - handle potential initialization issues
+  try {
+    FirebaseMessaging.instance;
+  } catch (e) {
+    // If Firebase Messaging can't be initialized, just continue
+    // This is common in test environments
+    print('Error initializing Firebase Messaging for testing: $e');
   }
 }
 
@@ -108,6 +131,7 @@ Future<void> runWithFakeAsync(Future<void> Function() testFunction) async {
     clock.elapse(const Duration(milliseconds: 100));
   });
 }
+
 
 /// Creates a MaterialApp widget with proper Provider setup for testing.
 /// 

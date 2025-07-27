@@ -29,8 +29,13 @@ import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import '../helpers/mock_news_provider.dart';
 import 'package:flutter/services.dart';
+import '../test_setup.dart';
 
 void main() {
+  setUpAll(() async {
+    await setupTestEnvironment();
+  });
+
   group('ArticleCard', () {
     final testArticle = Article(
       title: 'Test Article Title',
@@ -149,7 +154,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(testArticleWithoutImage));
 
       // Give the widget time to build
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // Should not show image
       expect(find.byType(Image), findsNothing);
@@ -214,6 +219,19 @@ void main() {
     });
 
     testWidgets('tapping card navigates to NewsDetailScreen', (WidgetTester tester) async {
+      // Mock the image network request
+      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', (message) async {
+        final methodCall = const StandardMethodCodec().decodeMethodCall(message);
+        if (methodCall.method == 'ImageCache.putIfAbsent') {
+          final arguments = methodCall.arguments as Map<String, dynamic>;
+          final key = arguments['key'] as String;
+          if (key.contains(testArticle.imageUrl!)) {
+            return ByteData(8)..setInt32(0, 100)..setInt32(4, 100);
+          }
+        }
+        return null;
+      });
+
       await tester.pumpWidget(createWidgetUnderTest(testArticle));
 
       // Tap the card using a more specific finder
@@ -225,6 +243,9 @@ void main() {
 
       // Should navigate to NewsDetailScreen
       expect(find.text('Article'), findsOneWidget);
+
+      // Clean up
+      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', null);
     });
 
     testWidgets('tapping bookmark button toggles save state', (WidgetTester tester) async {

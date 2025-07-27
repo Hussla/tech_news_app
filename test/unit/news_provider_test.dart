@@ -22,10 +22,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:tech_news_app/models/article.dart';
+import '../test_setup.dart';
 
 void main() {
   group('NewsProvider', () {
     late NewsProvider newsProvider;
+
+    setUpAll(() async {
+      // Set up the test environment
+      await setupTestEnvironment();
+    });
 
     setUp(() async {
       newsProvider = NewsProvider();
@@ -85,7 +91,7 @@ void main() {
       expect(newsProvider.articles, isEmpty);
     });
 
-    test('saveArticle adds article to savedArticles', () {
+    test('saveArticle adds article to savedArticles', () async {
       final article = Article(
         title: 'Test Article',
         description: 'Test description',
@@ -94,7 +100,7 @@ void main() {
         publishedAt: DateTime.now(),
       );
 
-      newsProvider.saveArticle(article);
+      await newsProvider.saveArticle(article);
       
       expect(newsProvider.savedArticles, isNotEmpty);
       expect(newsProvider.savedArticles.length, 1);
@@ -102,7 +108,7 @@ void main() {
       expect(newsProvider.isArticleSaved(article.url), isTrue);
     });
 
-    test('saveArticle does not add duplicate articles', () {
+    test('saveArticle does not add duplicate articles', () async {
       final article = Article(
         title: 'Test Article',
         description: 'Test description',
@@ -111,13 +117,13 @@ void main() {
         publishedAt: DateTime.now(),
       );
 
-      newsProvider.saveArticle(article);
-      newsProvider.saveArticle(article); // Try to add again
+      await newsProvider.saveArticle(article);
+      await newsProvider.saveArticle(article); // Try to add again
       
       expect(newsProvider.savedArticles.length, 1);
     });
 
-    test('removeSavedArticle removes article from savedArticles', () {
+    test('removeSavedArticle removes article from savedArticles', () async {
       final article = Article(
         title: 'Test Article',
         description: 'Test description',
@@ -126,16 +132,16 @@ void main() {
         publishedAt: DateTime.now(),
       );
 
-      newsProvider.saveArticle(article);
+      await newsProvider.saveArticle(article);
       expect(newsProvider.savedArticles.length, 1);
       
-      newsProvider.removeSavedArticle(article.url);
+      await newsProvider.removeSavedArticle(article.url);
       
       expect(newsProvider.savedArticles, isEmpty);
       expect(newsProvider.isArticleSaved(article.url), isFalse);
     });
 
-    test('isArticleSaved returns correct value', () {
+    test('isArticleSaved returns correct value', () async {
       final article = Article(
         title: 'Test Article',
         description: 'Test description',
@@ -146,10 +152,10 @@ void main() {
 
       expect(newsProvider.isArticleSaved(article.url), isFalse);
       
-      newsProvider.saveArticle(article);
+      await newsProvider.saveArticle(article);
       expect(newsProvider.isArticleSaved(article.url), isTrue);
       
-      newsProvider.removeSavedArticle(article.url);
+      await newsProvider.removeSavedArticle(article.url);
       expect(newsProvider.isArticleSaved(article.url), isFalse);
     });
 
