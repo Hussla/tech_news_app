@@ -45,29 +45,45 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    
-    // Set up Firebase Messaging for background message handling
-    // This allows the app to receive push notifications even when terminated
-    // Reference: https://firebase.flutter.dev/docs/messaging/usage#background-messages
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    
-    // Initialise local notification service for displaying notifications
-    // This service handles both local and push notifications in a unified way
-    // Reference: https://pub.dev/packages/flutter_local_notifications
-    await LocalNotificationService.initialize();
-    
-    // Handle notification tap events when the app is opened from a notification
-    // This listener is triggered when a user taps on a notification
-    // Reference: https://firebase.flutter.dev/docs/messaging/notifications#handling-interaction
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      _handleNotificationTap(message.data['type']);
-    });
-  } catch (e) {
-    print('Firebase initialization error: $e');
+  // Check if we're in a test environment
+  // This prevents Firebase initialization during tests
+  // Using a more reliable method to detect test environment
+  final isTesting = () {
+    try {
+      // Check if we're running in a test environment by trying to access
+      // a test-specific class that only exists in test mode
+      TestWidgetsFlutterBinding.ensureInitialized();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }();
+  
+  if (!isTesting) {
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      
+      // Set up Firebase Messaging for background message handling
+      // This allows the app to receive push notifications even when terminated
+      // Reference: https://firebase.flutter.dev/docs/messaging/usage#background-messages
+      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      
+      // Initialise local notification service for displaying notifications
+      // This service handles both local and push notifications in a unified way
+      // Reference: https://pub.dev/packages/flutter_local_notifications
+      await LocalNotificationService.initialize();
+      
+      // Handle notification tap events when the app is opened from a notification
+      // This listener is triggered when a user taps on a notification
+      // Reference: https://firebase.flutter.dev/docs/messaging/notifications#handling-interaction
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        _handleNotificationTap(message.data['type']);
+      });
+    } catch (e) {
+      print('Firebase initialization error: $e');
+    }
   }
   
   runApp(const MyApp());

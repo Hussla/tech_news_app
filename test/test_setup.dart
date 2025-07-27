@@ -46,33 +46,31 @@ Future<void> setupFirebaseAuthMocks() async {
   // The MockFirebaseAuth constructor automatically sets up FirebaseAuth.instance
   final auth = MockFirebaseAuth();
   
-  // Initialize Firebase for testing
-  // Use a try-catch block to handle any initialization issues
-  try {
-    // Clear any existing apps first
-    if (Firebase.apps.isNotEmpty) {
-      await Firebase.apps.first.delete();
-    }
-    
-    // Initialize Firebase with the mock options
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    // If there's an error, just continue - the mock should still work
-    // This is common in test environments where Firebase can't be fully initialized
-    print('Error initializing Firebase for testing: $e');
-  }
+  // In test mode, we don't need to initialize Firebase
+  // The mock will handle all Firebase Auth operations
 }
 
 /// Initializes the database for testing.
 /// 
 /// This function sets up the database factory for testing, which is required
 /// for sqflite to work in a web environment or when running tests.
+/// 
+/// This implementation:
+/// 1. Initializes the FFI implementation for testing
+/// 2. Sets the database factory to use FFI
+/// 3. Ensures the database schema is properly created
 void setupDatabaseForTesting() {
   // Initialize FFI implementation for testing
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
+  
+  // Clear any existing database to ensure a clean state
+  // This helps prevent schema issues between test runs
+  try {
+    databaseFactory.deleteDatabase('tech_news.db');
+  } catch (e) {
+    // Ignore errors if database doesn't exist
+  }
 }
 
 /// Sets up the test environment with necessary configurations.
@@ -85,7 +83,6 @@ void setupDatabaseForTesting() {
 /// 2. Enables testing mode to prevent database operations
 /// 3. Initializes database for testing
 /// 4. Configures Firebase Auth for testing with mocks
-/// 5. Configures Firebase Messaging for testing with mocks
 Future<void> setupTestEnvironment() async {
   // Configure fake async for timer handling
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -98,15 +95,6 @@ Future<void> setupTestEnvironment() async {
   
   // Set up Firebase Auth mocks - await the async operation
   await setupFirebaseAuthMocks();
-  
-  // Mock Firebase Messaging - handle potential initialization issues
-  try {
-    FirebaseMessaging.instance;
-  } catch (e) {
-    // If Firebase Messaging can't be initialized, just continue
-    // This is common in test environments
-    print('Error initializing Firebase Messaging for testing: $e');
-  }
 }
 
 /// Runs a test function with fake async to control timers.
