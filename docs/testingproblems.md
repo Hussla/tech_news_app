@@ -20,7 +20,7 @@ This document tracks all known testing issues in the Tech News app. Each issue i
   - widget_test.dart (1 test)
   - main_flow_test.dart (multiple tests)
 - **Root cause**: Firebase not properly mocked in test environment
-- **Status**: ❌ Not resolved
+- **Status**: ✅ Resolved
 
 ### 2. Database Schema Issues
 - **Symptoms**:
