@@ -48,6 +48,7 @@ Future<void> setupFirebaseAuthMocks() async {
   
   // In test mode, we don't need to initialize Firebase
   // The mock will handle all Firebase Auth operations
+  // No additional setup is needed
 }
 
 /// Initializes the database for testing.

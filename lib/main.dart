@@ -47,17 +47,7 @@ void main() async {
   
   // Check if we're in a test environment
   // This prevents Firebase initialization during tests
-  // Using a more reliable method to detect test environment
-  final isTesting = () {
-    try {
-      // Check if we're running in a test environment by trying to access
-      // a test-specific class that only exists in test mode
-      TestWidgetsFlutterBinding.ensureInitialized();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }();
+  final isTesting = const bool.fromEnvironment('FLUTTER_TEST');
   
   if (!isTesting) {
     try {
