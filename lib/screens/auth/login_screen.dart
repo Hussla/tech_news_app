@@ -19,9 +19,6 @@
 /// - ElevatedButton: https://api.flutter.dev/flutter/material/ElevatedButton-class.html
 /// - Navigation: https://docs.flutter.dev/ui/navigation
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:tech_news_app/screens/home_screen.dart';
 
 /// The login interface for the Tech News application.
 /// 
@@ -40,7 +37,6 @@ import 'package:tech_news_app/screens/home_screen.dart';
 /// - StatefulWidget: https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html
 /// - Authentication: https://docs.flutter.dev/data-and-backend/firebase-auth
 class LoginScreen extends StatefulWidget {
-  /// Creates a LoginScreen widget
   const LoginScreen({super.key});
 
   @override
@@ -50,7 +46,6 @@ class LoginScreen extends StatefulWidget {
 /// The state class for the LoginScreen.
 /// 
 /// This State class manages:
-/// - The Firebase authentication instance
 /// - The loading state during authentication attempts
 /// - The Google Sign-In functionality
 /// - The anonymous (guest) sign-in functionality
@@ -61,92 +56,39 @@ class LoginScreen extends StatefulWidget {
 /// 
 /// References:
 /// - State: https://api.flutter.dev/flutter/widgets/State-class.html
-/// - Firebase Authentication: https://firebase.flutter.dev/docs/auth/overview
 /// - User Feedback: https://api.flutter.dev/flutter/material/SnackBar-class.html
 class _LoginScreenState extends State<LoginScreen> {
-  /// The Firebase authentication instance used for authentication
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   /// Whether an authentication operation is currently in progress
   bool _isLoading = false;
-
-  /// Signs in the user with Google authentication.
-  /// 
-  /// This method:
-  /// 1. Sets the loading state to true
-  /// 2. Attempts to sign in with Google
-  /// 3. Shows a snackbar with the result
-  /// 4. Resets the loading state
-  /// 
-  /// For the web demo, this method only shows a message that Google
-  /// Sign-In is not configured, as the web implementation requires
-  /// additional setup.
-  /// 
-  /// References:
-  /// - Google Sign-In: https://firebase.flutter.dev/docs/auth/social#google
-  /// - Error Handling: https://dart.dev/guides/language/effective-dart/usage#do-use-on-clauses-in-catch-statements-for-flow-control
-  Future<void> _signInWithGoogle() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      // For now, just show a message that Google Sign-In is not configured
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Google Sign-In not configured for web')),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to sign in with Google')),
-        );
-      }
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   /// Signs in the user anonymously (as a guest).
   /// 
   /// This method:
   /// 1. Sets the loading state to true
-  /// 2. Navigates to the HomeScreen
-  /// 3. Shows a snackbar if the navigation fails
+  /// 2. Shows a demo message
+  /// 3. Navigates to the HomeScreen
   /// 4. Resets the loading state
   /// 
-  /// For the web demo, this method bypasses actual Firebase authentication
-  /// and navigates directly to the HomeScreen, as the web implementation
-  /// would require additional setup.
-  /// 
-  /// The method uses Navigator.pushReplacement to replace the login screen
-  /// with the home screen, preventing the user from navigating back to
-  /// the login screen with the back button.
+  /// For the web demo, this method navigates directly to the home screen
+  /// without actual Firebase authentication.
   /// 
   /// References:
   /// - Anonymous Authentication: https://firebase.flutter.dev/docs/auth/anonymous
   /// - Navigation: https://docs.flutter.dev/ui/navigation
-  /// - Error Handling: https://dart.dev/guides/language/effective-dart/usage#do-use-on-clauses-in-catch-statements-for-flow-control
   Future<void> _signInAnonymously() async {
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // For web demo, just navigate directly without Firebase auth
+      // For the demo, just navigate to the home screen
       if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
+        Navigator.of(context).pushReplacementNamed('/home');
       }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to sign in anonymously')),
+          const SnackBar(content: Text('Failed to sign in as guest')),
         );
       }
     } finally {
@@ -222,15 +164,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     : Column(
                         children: [
                           ElevatedButton.icon(
-                            onPressed: null, // Disabled for demo
+                            onPressed: () {
+                              // Show message that Google Sign-In is not configured for demo
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Google Sign-In not configured for this demo')),
+                                );
+                              }
+                            },
                             icon: const Icon(Icons.login),
-                            label: const Text('Google Sign-In (Coming Soon)'),
+                            label: const Text('Google Sign-In (Demo Only)'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey.shade300,
                               foregroundColor: Colors.grey.shade600,
                               minimumSize: const Size(double.infinity, 50),
-                              disabledBackgroundColor: Colors.grey.shade300,
-                              disabledForegroundColor: Colors.grey.shade600,
                             ),
                           ),
                           const SizedBox(height: 20),

@@ -90,6 +90,22 @@ class MockNewsProvider extends NewsProvider {
   Future<void> searchNews(String query) async {
     if (_disposed) return;
     _mockSearchQuery = query;
+    
+    // Mock search results based on the query
+    if (query.isNotEmpty) {
+      _mockArticles = [
+        Article(
+          title: 'Mock $query Article',
+          description: 'This is a mock article for $query search',
+          url: 'https://example.com/$query',
+          imageUrl: 'https://example.com/image.jpg',
+          publishedAt: DateTime.now(),
+        ),
+      ];
+    } else {
+      _mockArticles = [];
+    }
+    
     if (!_disposed) {
       notifyListeners();
     }
@@ -120,13 +136,13 @@ class MockNewsProvider extends NewsProvider {
     return _mockSavedArticles.any((article) => article.url == url);
   }
 
-  @override
+  // Mock method for loading saved articles in tests
   Future<void> loadSavedArticles() async {
     if (_disposed) return;
     // Mock implementation - no database operations
   }
 
-  @override
+  // Mock method for fetching news by category in tests
   Future<void> fetchNewsByCategory(String category) async {
     if (_disposed) return;
     // Mock implementation - no actual API call

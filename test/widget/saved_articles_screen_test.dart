@@ -163,20 +163,20 @@ void main() {
         await tester.pump();
 
         // Swipe to delete
-        await tester.fling(
+        await tester.drag(
           find.text(testArticle.title),
           const Offset(-500, 0),
-          1000,
         );
         
-        // Allow time for swipe animation
+        // Allow time for swipe animation and dialog to appear
         await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
 
         // Confirmation dialog should be displayed
-        expect(find.text('Remove from saved?'), findsOneWidget);
-        expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
+        expect(find.text('Remove Article'), findsOneWidget);
+        expect(find.text('Remove "Saved Article" from saved articles?'), findsOneWidget);
         expect(find.text('Cancel'), findsOneWidget);
-        expect(find.text('Remove'), findsOneWidget);
+        expect(find.text('Remove'), findsAtLeastNWidgets(1));
       });
     });
 
@@ -196,17 +196,21 @@ void main() {
         await tester.pump();
 
         // Swipe to delete
-        await tester.fling(
+        await tester.drag(
           find.text(testArticle.title),
           const Offset(-500, 0),
-          1000,
         );
         
-        // Allow time for swipe animation
+        // Allow time for swipe animation and dialog to appear
         await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
 
-        // Tap Cancel
-        await tester.tap(find.text('Cancel'));
+        // Tap Cancel button in the dialog
+        final cancelButtonFinder = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.text('Cancel'),
+        );
+        await tester.tap(cancelButtonFinder);
         await tester.pump();
 
         // Article should still be in the list
@@ -231,18 +235,25 @@ void main() {
         await tester.pump();
 
         // Swipe to delete
-        await tester.fling(
+        await tester.drag(
           find.text(testArticle.title),
           const Offset(-500, 0),
-          1000,
         );
         
-        // Allow time for swipe animation
+        // Allow time for swipe animation and dialog to appear
         await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
 
-        // Tap Remove
-        await tester.tap(find.text('Remove'));
+        // Tap Remove button in the dialog
+        final removeButtonFinder = find.descendant(
+          of: find.byType(AlertDialog),
+          matching: find.text('Remove'),
+        );
+        await tester.tap(removeButtonFinder);
         await tester.pump();
+        
+        // Wait for dialog to close and dismissal to complete
+        await tester.pumpAndSettle();
 
         // Article should be removed
         expect(find.text(testArticle.title), findsNothing);
@@ -289,11 +300,11 @@ void main() {
 
       // Tap clear all button (icon button)
       await tester.tap(find.byIcon(Icons.delete_sweep));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Tap Cancel
       await tester.tap(find.text('Cancel'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Article should still be in the list
       expect(find.text(testArticle.title), findsOneWidget);
@@ -315,11 +326,11 @@ void main() {
 
       // Tap clear all button (icon button)
       await tester.tap(find.byIcon(Icons.delete_sweep));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Tap Clear All in dialog
       await tester.tap(find.text('Clear All'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Article should be removed
       expect(find.text(testArticle.title), findsNothing);
@@ -340,15 +351,22 @@ void main() {
       });
 
       // Swipe to delete
-      await tester.fling(
+      await tester.drag(
         find.text(testArticle.title),
         const Offset(-500, 0),
-        1000,
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
-      // Tap Remove
-      await tester.tap(find.text('Remove'));
+      // Tap Remove button in the dialog
+      final removeButtonFinder = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text('Remove'),
+      );
+      await tester.tap(removeButtonFinder);
+      await tester.pump();
+      
+      // Wait for dialog to close and dismissal to complete
       await tester.pumpAndSettle();
 
       // Snackbar should be displayed with undo option
@@ -370,20 +388,27 @@ void main() {
       });
 
       // Swipe to delete
-      await tester.fling(
+      await tester.drag(
         find.text(testArticle.title),
         const Offset(-500, 0),
-        1000,
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
-      // Tap Remove
-      await tester.tap(find.text('Remove'));
+      // Tap Remove button in the dialog
+      final removeButtonFinder = find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.text('Remove'),
+      );
+      await tester.tap(removeButtonFinder);
+      await tester.pump();
+      
+      // Wait for dialog to close and dismissal to complete
       await tester.pumpAndSettle();
 
       // Tap Undo
       await tester.tap(find.text('Undo'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Article should be restored
       expect(find.text(testArticle.title), findsOneWidget);

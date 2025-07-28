@@ -88,7 +88,7 @@ void main() {
 
       // Tap Saved tab
       await tester.tap(find.text('Saved'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Should show SavedArticlesScreen content
       expect(find.text('Saved Articles'), findsOneWidget);
@@ -99,7 +99,7 @@ void main() {
 
       // Tap Saved tab
       await tester.tap(find.text('Saved'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Saved tab should be selected
       final bottomNavBar = tester.widget<BottomNavigationBar>(find.byType(BottomNavigationBar));
@@ -107,7 +107,7 @@ void main() {
       
       // Tap Search tab
       await tester.tap(find.text('Search'));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Search tab should be selected
       final bottomNavBar2 = tester.widget<BottomNavigationBar>(find.byType(BottomNavigationBar));
@@ -132,7 +132,8 @@ void main() {
 
       // Tap FAB
       await tester.tap(find.byType(FloatingActionButton));
-      await tester.pumpAndSettle();
+      await tester.pump(); // Allow for navigation animation
+      await tester.pump(); // Extra pump for settling
 
       // Should navigate to VoiceSearchScreen
       expect(find.text('Voice Search'), findsOneWidget);

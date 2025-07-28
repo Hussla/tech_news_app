@@ -35,8 +35,10 @@ void main() {
 
     setUp(() async {
       newsProvider = NewsProvider();
-      // Wait for initial fetch to complete
-      await Future.delayed(const Duration(milliseconds: 1100));
+      // Manually fetch top headlines since testing mode is enabled
+      await newsProvider.fetchTopHeadlines();
+      // Wait for fetch to complete
+      await Future.delayed(const Duration(milliseconds: 100));
     });
 
     tearDown(() {
