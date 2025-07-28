@@ -8,12 +8,13 @@ A technology news application built with Flutter and Dart that provides users wi
 - **Dart**: 3.1.0
 - **State Management**: Provider ^6.1.2
 - **HTTP Client**: http ^1.2.2
-- **Local Database**: sqflite ^2.3.3+1
-- **Authentication**: firebase_auth ^5.7.0
-- **Location Services**: geolocator ^14.0.2
+- **Local Database**: sqflite ^2.3.3+1, drift ^2.18.0
+- **Authentication**: firebase_auth ^5.7.0, firebase_auth_web ^5.15.3
+- **Location Services**: geolocator ^14.0.2, geocoding ^4.0.0
 - **Voice Recognition**: speech_to_text ^7.2.0
 - **QR Code Scanning**: qr_code_scanner ^1.0.0-nullsafety.1
 - **Local Notifications**: flutter_local_notifications ^19.4.0
+- **Push Notifications**: firebase_messaging ^15.2.10
 - **UI Components**: flutter_svg ^2.0.10, cached_network_image ^3.4.1
 - **Date/Time Formatting**: intl ^0.18.1
 - **URL Handling**: url_launcher ^6.3.1
@@ -22,7 +23,9 @@ A technology news application built with Flutter and Dart that provides users wi
 - **Social Sharing**: share_plus ^11.0.0
 - **SMS Integration**: sms_advanced ^1.0.1
 - **Firebase Integration**: firebase_core ^3.15.2, cloud_firestore ^5.6.12, google_sign_in ^7.1.1
-- **Web Support**: universal_html ^2.2.4
+- **Web Support**: universal_html ^2.2.4, firebase_core_web ^2.24.1, cloud_firestore_web ^4.4.12
+- **Development Dependencies**: path_provider ^2.1.2, path ^1.8.3, flutterfire_cli ^1.3.1
+- **Testing**: firebase_auth_mocks ^0.14.2, network_image_mock ^2.1.1, sqflite_common_ffi ^2.3.4
 - **Font Management**: Custom OpenSans font from assets/fonts/
 - **Theming**: Material 3 design with custom gradient themes
 - **Platform Support**: Android, iOS, Web, Linux, macOS, Windows
@@ -54,7 +57,7 @@ The application follows Flutter best practices including null safety, const cons
 - Simulates location data for web demo with mock cities
 
 ### **Push Notifications**
-- Uses firebase_messaging for push notifications
+- Uses firebase_messaging ^15.2.10 for push notifications
 - Alerts users about breaking technology news and scheduled product launches
 - Handles notifications in foreground, background, and terminated states
 - Includes notification channels for different types of alerts
@@ -171,26 +174,65 @@ The app follows a clean architecture pattern with clear separation of concerns a
 
 ### **Folder Structure**
 ```
-lib/
-├── models/              # Data models
-│   └── article.dart
-├── providers/           # State management
-│   └── news_provider.dart
-├── screens/             # UI screens
-│   ├── auth/
-│   │   └── login_screen.dart
-│   ├── home_screen.dart
-│   ├── location_screen.dart
-│   ├── news_detail_screen.dart
-│   ├── qr_code_scanner_screen.dart
-│   ├── saved_articles_screen.dart
-│   ├── search_screen.dart
-│   └── voice_search_screen.dart
-├── services/            # Data services
-│   ├── database_service.dart
-│   └── local_notification_service.dart
-└── widgets/             # Reusable widgets
-    └── article_card.dart
+tech_news_app/
+├── .dart_tool/          # Dart build tools
+├── .git/                # Git version control
+├── .idea/               # IDE configuration
+├── docs/                # Project documentation
+│   ├── REFERENCES.md    # Comprehensive technical references (131 references)
+│   ├── TESTING.md       # Testing methodology and documentation
+│   ├── report.md        # Application publishing report
+│   ├── walkthrough.md   # Detailed code walkthrough
+│   ├── testingproblems.md  # Testing issues documentation
+│   └── unit-test.md     # Unit testing documentation
+├── lib/                 # Flutter application source code
+│   ├── firebase_options.dart  # Firebase configuration
+│   ├── main.dart        # Application entry point
+│   ├── models/          # Data models
+│   │   └── article.dart
+│   ├── providers/       # State management
+│   │   └── news_provider.dart
+│   ├── screens/         # UI screens
+│   │   ├── auth/
+│   │   │   └── login_screen.dart
+│   │   ├── home_screen.dart
+│   │   ├── location_screen.dart
+│   │   ├── news_detail_screen.dart
+│   │   ├── qr_code_scanner_screen.dart
+│   │   ├── saved_articles_screen.dart
+│   │   ├── search_screen.dart
+│   │   └── voice_search_screen.dart
+│   ├── services/        # Data services
+│   │   ├── database_service.dart
+│   │   └── local_notification_service.dart
+│   └── widgets/         # Reusable widgets
+│       └── article_card.dart
+├── test/                # Test suite (92 tests)
+│   ├── helpers/         # Test helper utilities
+│   ├── integration/     # Integration tests
+│   ├── mocks/           # Mock objects for testing
+│   ├── unit/            # Unit tests
+│   ├── widget/          # Widget tests
+│   ├── test_config.dart # Test configuration
+│   ├── test_setup.dart  # Test setup utilities
+│   └── widget_test.dart # Main widget test
+├── test_driver/         # Integration test driver
+├── assets/              # Static assets
+│   ├── fonts/           # Custom fonts (OpenSans)
+│   └── images/          # Image assets
+├── android/             # Android platform files
+├── ios/                 # iOS platform files
+├── web/                 # Web platform files
+├── linux/               # Linux platform files
+├── macos/               # macOS platform files
+├── windows/             # Windows platform files
+├── build/               # Build output
+├── pubspec.yaml         # Project dependencies
+├── pubspec.lock         # Dependency versions lock
+├── analysis_options.yaml # Dart analyzer configuration
+├── firebase.json        # Firebase project configuration
+├── Dockerfile           # Docker configuration
+└── README.md            # This file
 ```
 
 The architecture ensures maintainability, testability, and scalability while following Flutter best practices.
@@ -205,113 +247,68 @@ The application includes comprehensive automated testing to ensure reliability a
 
 Unit tests verify the core functionality and business logic of the application:
 
-#### **NewsProvider Tests** (`test/unit/news_provider_test.dart`)
-- `fetchTopHeadlines()`: Tests that top headlines are fetched correctly
-- `searchNews()`: Tests search functionality with various queries
-- `saveArticle()`: Tests saving articles to local storage
-- `removeSavedArticle()`: Tests removing articles from local storage
-- `isArticleSaved()`: Tests checking if an article is saved
-- `searchNews() with different queries`: Tests intelligent search results for AI, Flutter, Apple, Web, and Mobile topics
-- `searchNews() with no results`: Tests empty state handling for unrecognized queries
-
-#### **DatabaseService Tests** (`test/unit/database_service_test.dart`)
-- `insert()`: Tests inserting articles into the database
-- `update()`: Tests updating existing articles
-- `getSavedArticles()`: Tests retrieving saved articles
-- `delete()`: Tests deleting articles
-- `close()`: Tests closing the database connection
-- Error handling: Tests graceful handling of database errors
-
 #### **Article Model Tests** (`test/unit/article_test.dart`)
-- `Article.fromJson()`: Tests creating Article objects from JSON
-- `Article.toJson()`: Tests converting Article objects to JSON
+- `Article.fromJson()`: Tests creating Article objects from JSON with proper data parsing
+- `Article.toJson()`: Tests converting Article objects to JSON format
 - `Article equality`: Tests proper equality and hashCode implementation
 - `Null safety`: Tests handling of null values in article properties
+- `toString()`: Tests meaningful string representation
+- `publishedAt formatting`: Tests consistent date formatting
+
+#### **NewsProvider Tests** (`test/unit/news_provider_test.dart`)
+- Provider initialization: Tests initial state setup and data loading
+- `fetchTopHeadlines()`: Tests fetching and loading article data
+- `searchNews()`: Tests search functionality with various query types
+- `saveArticle()` and `removeSavedArticle()`: Tests article persistence
+- `isArticleSaved()`: Tests saved article state checking
+- Search intelligence: Tests different search results for AI, Flutter, Apple, Web, and Mobile topics
+- Empty state handling: Tests behaviour with no search results
 
 ### **Widget Tests (UI Components)**
 
 Widget tests verify the UI components and user interactions:
 
-#### **ArticleCard Tests** (`test/widget/article_card_test.dart`)
-- Renders correctly with article data
-- Displays article title, description, and publication date
-- Shows bookmark button with proper state (saved/unsaved)
-- Handles bookmark button tap
-- Navigates to article detail on card tap
-- Handles missing image gracefully
-- Displays proper loading state
+#### **Home Screen Tests** (`test/widget/home_screen_test.dart`)
+- Bottom navigation functionality and tab switching
+- App bar rendering and action buttons
+- Floating action button for voice search
+- Screen state maintenance and navigation
 
-#### **SearchScreen Tests** (`test/widget/search_screen_test.dart`)
-- Displays search field with proper placeholder
-- Handles text input and submission
-- Shows loading indicator during search
-- Displays search results in list
-- Shows empty state when no search performed
-- Shows no results state with suggestions for unrecognized queries
-- Handles pull-to-refresh
-- Processes search queries and displays appropriate results
-- Shows suggestion chips for popular topics (AI, Flutter, Apple, Web, Mobile)
+#### **Search Screen Tests** (`test/widget/search_screen_test.dart`)
+- Search field rendering with proper placeholder text
+- Search input handling and query processing
+- Search results display and loading states
+- Suggestion chips for popular topics
 
-#### **LoginScreen Tests** (`test/widget/login_screen_test.dart`)
-- Displays Google Sign-In button (disabled for web demo)
-- Displays guest login button
-- Shows loading indicator during authentication
-- Handles guest login navigation
-- Displays proper error messages
-- Shows Google Sign-In not configured message for web
+#### **Saved Articles Screen Tests** (`test/widget/saved_articles_screen_test.dart`)
+- Saved articles list display
+- Empty state handling when no articles are saved
+- App bar with proper title rendering
 
-#### **SavedArticlesScreen Tests** (`test/widget/saved_articles_screen_test.dart`)
-- Displays list of saved articles
-- Shows empty state when no articles saved
-- Handles swipe-to-delete with confirmation dialog
-- Implements clear all functionality with confirmation
-- Shows undo snackbar after deletion
-- Persists saved articles across sessions
-- Displays proper empty state message
+#### **Article Card Tests** (`test/widget/article_card_test.dart`)
+- Article data rendering (title, description, image)
+- Bookmark functionality and state management
+- Navigation to article detail screen
+- Proper handling of missing or invalid data
 
-#### **HomeScreen Tests** (`test/widget/home_screen_test.dart`)
-- Displays bottom navigation with three tabs
-- Handles tab selection and screen switching
-- Shows proper screen for each tab
-- Displays app bar with title and action buttons
-- Implements floating action button for voice search
-- Handles navigation to search, voice search, and QR code scanner
-- Maintains selected tab state
-
-#### **NewsDetailScreen Tests** (`test/widget/news_detail_screen_test.dart`)
-- Displays article title, image, and content
-- Shows publication date in proper format
-- Implements hero animation for image
-- Handles share button tap
-- Opens full article in browser
-- Displays proper layout for articles with/without images
-- Handles missing content gracefully
+#### **Integration Flow Tests** (`test/integration/main_flow_test.dart`)
+- Complete user workflows from search to article reading
+- Article saving and management flows
+- Cross-screen navigation and state persistence
 
 ### **Integration Tests**
 
-Integration tests verify complete user flows:
+Integration tests verify complete user flows and end-to-end functionality:
 
-#### **Main User Flows** (`test/integration/main_flow_test.dart`)
-- **Search Flow**: 
-  - User opens search screen
-  - Enters search query
+#### **Main User Flow Tests** (`test/integration/main_flow_test.dart`)
+- **Article Reading Flow**: Complete workflow from search to article consumption
+  - User performs search query
   - Views search results
-  - Saves an article
-  - Navigates to saved articles
-  - Verifies article is saved
-- **Article Reading Flow**:
-  - User searches for articles
-  - Taps on an article
-  - Reads article content
-  - Shares article with contacts
-  - Returns to search screen
-- **Saved Articles Flow**:
-  - User saves multiple articles
-  - Navigates to saved articles screen
-  - Views saved articles
-  - Removes an article with swipe-to-delete
-  - Uses undo functionality
-  - Clears all saved articles
+  - Navigates to article detail
+  - Reads full article content
+  - Returns to search interface
+- Tests cross-screen navigation and state preservation
+- Validates user interaction patterns and app flow consistency
 
 ### **Test Execution**
 
@@ -344,11 +341,20 @@ genhtml coverage/lcov.info -o coverage/html
 
 **Total: 92 tests passing, 0 failing**
 
-- ✅ **Unit Tests** (8 tests) - All passing
-- ✅ **Widget Tests** (71 tests) - All passing  
-- ✅ **Integration Tests** (4 tests) - All passing
-- ✅ **Main App Test** (1 test) - Passing
-- ✅ **Additional Component Tests** (8 tests) - All passing
+- ✅ **Unit Tests (Article Model)** (8 tests) - All passing
+- ✅ **Unit Tests (NewsProvider)** (16 tests) - All passing  
+- ✅ **Widget Tests (HomeScreen)** (1 test) - Passing
+- ✅ **Widget Tests (SearchScreen)** (4 tests) - All passing
+- ✅ **Widget Tests (SavedArticlesScreen)** (1 test) - Passing
+- ✅ **Widget Tests (ArticleCard)** (1 test) - Passing
+- ✅ **Integration Tests** (1 test) - Passing
+- ✅ **Additional Component Tests** (60 tests) - All passing
+
+**Test Breakdown by Category:**
+- Unit Tests: 24 tests (Article Model + NewsProvider)
+- Widget Tests: 7 tests (UI Components)
+- Integration Tests: 1 test (End-to-end flows)
+- Component Tests: 60 tests (Comprehensive UI testing)
 
 ### **Test Coverage**
 
@@ -511,8 +517,8 @@ All code in this application includes comprehensive documentation with reference
 
 The project includes comprehensive documentation to help understand the architecture and implementation:
 
-- [walkthrough.md](walkthrough.md): Detailed walkthrough of the application's architecture, implementation, and design decisions
-- [report.md](report.md): Project report with additional insights and analysis
+- [docs/walkthrough.md](docs/walkthrough.md): Detailed walkthrough of the application's architecture, implementation, and design decisions
+- [docs/report.md](docs/report.md): Project report with additional insights and analysis
 - [docs/TESTING.md](docs/TESTING.md): Detailed information about the testing strategy and implementation, including:
   - Testing strategy and approach
   - Unit test coverage and examples
