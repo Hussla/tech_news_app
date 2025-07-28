@@ -131,4 +131,26 @@ class MockNewsProvider extends NewsProvider {
     if (_disposed) return;
     // Mock implementation - no actual API call
   }
+
+  /// Setup method for easily configuring saved articles in tests.
+  /// 
+  /// This method allows tests to easily set up a list of saved articles
+  /// without going through the normal save/unsave flow.
+  void setupSavedArticles(List<Article> articles) {
+    _mockSavedArticles = List.from(articles);
+    if (!_disposed) {
+      notifyListeners();
+    }
+  }
+
+  /// Setup method for easily configuring main articles list in tests.
+  /// 
+  /// This method allows tests to easily set up a list of articles
+  /// to simulate different loading states.
+  void setupArticles(List<Article> articles) {
+    _mockArticles = List.from(articles);
+    if (!_disposed) {
+      notifyListeners();
+    }
+  }
 }

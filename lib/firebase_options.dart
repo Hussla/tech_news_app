@@ -83,10 +83,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -108,6 +105,31 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  /// Firebase configuration for the iOS platform.
+  /// 
+  /// This constant contains the Firebase options for the iOS version
+  /// of the Tech News application. It includes settings for:
+  /// - apiKey: Used for authenticating requests from the iOS app
+  /// - appId: Unique identifier for the iOS application
+  /// - messagingSenderId: Used for Firebase Cloud Messaging
+  /// - projectId: Google Cloud project ID
+  /// - storageBucket: Google Cloud Storage bucket for file storage
+  /// - appId: Unique identifier for the iOS application
+  /// 
+  /// These settings are automatically configured by the FlutterFire CLI
+  /// and should not be modified manually unless reconfiguring Firebase.
+  /// 
+  /// References:
+  /// - Firebase iOS Setup: https://firebase.google.com/docs/ios/setup
+  /// - Firebase Configuration: https://firebase.google.com/docs/projects/api-keys
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyARvXNc4xhyE2OJ4nS0SS4wXMk7nxLHSJE',
+    appId: '1:1095806055802:ios:0ee0450ce8c8b4b6a552c3',
+    messagingSenderId: '1095806055802',
+    projectId: 'newsapp-2b5f7',
+    storageBucket: 'newsapp-2b5f7.firebasestorage.app',
+  );
 
   /// Firebase configuration for the web platform.
   /// 

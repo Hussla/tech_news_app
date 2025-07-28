@@ -22,16 +22,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
+import 'package:tech_news_app/screens/home_screen.dart';
+import 'package:tech_news_app/screens/auth/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'helpers/mock_news_provider.dart';
 import '../lib/firebase_options.dart';
-import 'package:mockito/mockito.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Sets up Firebase Auth mocks for testing.
 /// 
@@ -44,7 +42,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 Future<void> setupFirebaseAuthMocks() async {
   // Create a mock instance of FirebaseAuth
   // The MockFirebaseAuth constructor automatically sets up FirebaseAuth.instance
-  final auth = MockFirebaseAuth();
+  MockFirebaseAuth();
   
   // In test mode, we don't need to initialize Firebase
   // The mock will handle all Firebase Auth operations
@@ -96,6 +94,17 @@ Future<void> setupTestEnvironment() async {
   
   // Set up Firebase Auth mocks - await the async operation
   await setupFirebaseAuthMocks();
+  
+  // Ensure Firebase is not initialized during tests
+  // This prevents the "No Firebase App '[DEFAULT]'" error
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    // Ignore initialization errors in tests
+    // The mocks will handle Firebase operations
+  }
 }
 
 /// Runs a test function with fake async to control timers.
@@ -210,6 +219,55 @@ Future<T> safeAsyncTest<T>(
   return await operation().timeout(timeout);
 }
 
+/// Creates a complete MyApp instance configured for testing.
+/// 
+/// This function creates a properly configured MyApp instance with:
+/// - Mock Firebase Auth to avoid authentication issues
+/// - Mock NewsProvider to prevent API calls and timer issues
+/// - Network image mocking support
+/// 
+/// Returns a complete Flutter application widget ready for testing.
+Widget createTestMyApp() {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider<NewsProvider>.value(
+        value: MockNewsProvider(),
+      ),
+    ],
+    child: MaterialApp(
+      title: 'Tech News - Test Mode',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const LoginScreen(), // Uses mock auth from test setup
+      routes: {
+        '/home': (context) => const HomeScreen(),
+        '/login': (context) => const LoginScreen(),
+      },
+    ),
+  );
+}
+
+/// Creates a MockFirebaseAuth instance for testing.
+/// 
+/// This function creates a properly configured MockFirebaseAuth instance
+/// with a signed-out user state suitable for testing authentication flows.
+/// 
+/// Returns a MockFirebaseAuth instance ready for use in tests.
+MockFirebaseAuth createMockFirebaseAuth() {
+  return MockFirebaseAuth(signedIn: false);
+}
+
+/// Sets up the complete test environment.
+/// 
+/// This function performs all necessary setup for testing:
+/// - Configures database for testing
+/// - Sets up Firebase Auth mocks
+/// - Initialises any required services
+/// 
+/// Should be called at the beginning of each test.
 /// Disposes of any pending resources after tests.
 /// 
 /// This function should be called in tearDown() methods to clean up

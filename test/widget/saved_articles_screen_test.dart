@@ -148,130 +148,130 @@ void main() {
     }, timeout: Timeout(Duration(seconds: 120)));
 
     testWidgets('swipe to delete shows confirmation dialog', (WidgetTester tester) async {
-      final provider = MockNewsProvider();
-      provider.savedArticles = [testArticle];
-      
       await mockNetworkImagesFor(() async {
+        final provider = MockNewsProvider();
+        provider.setupSavedArticles([testArticle]);
+
         await tester.pumpWidget(
           createMockTestApp(
             child: const SavedArticlesScreen(),
             mockProvider: provider,
           ),
         );
+
+        // Allow time for initial render
+        await tester.pump();
+
+        // Swipe to delete
+        await tester.fling(
+          find.text(testArticle.title),
+          const Offset(-500, 0),
+          1000,
+        );
+        
+        // Allow time for swipe animation
+        await tester.pump();
+
+        // Confirmation dialog should be displayed
+        expect(find.text('Remove from saved?'), findsOneWidget);
+        expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
+        expect(find.text('Cancel'), findsOneWidget);
+        expect(find.text('Remove'), findsOneWidget);
       });
-
-      // Allow time for animations
-      await tester.pumpAndSettle();
-
-      // Swipe to delete
-      await tester.fling(
-        find.text(testArticle.title),
-        const Offset(-500, 0),
-        1000,
-      );
-      
-      // Allow time for swipe animation
-      await tester.pumpAndSettle();
-
-      // Confirmation dialog should be displayed
-      expect(find.text('Remove from saved?'), findsOneWidget);
-      expect(find.text('Are you sure you want to remove this article from your saved articles?'), findsOneWidget);
-      expect(find.text('Cancel'), findsOneWidget);
-      expect(find.text('Remove'), findsOneWidget);
     });
 
     testWidgets('confirmation dialog cancels deletion when Cancel is tapped', (WidgetTester tester) async {
-      final provider = MockNewsProvider();
-      provider.savedArticles = [testArticle];
-      
       await mockNetworkImagesFor(() async {
+        final provider = MockNewsProvider();
+        provider.setupSavedArticles([testArticle]);
+        
         await tester.pumpWidget(
           createMockTestApp(
             child: const SavedArticlesScreen(),
             mockProvider: provider,
           ),
         );
+
+        // Allow time for initial render
+        await tester.pump();
+
+        // Swipe to delete
+        await tester.fling(
+          find.text(testArticle.title),
+          const Offset(-500, 0),
+          1000,
+        );
+        
+        // Allow time for swipe animation
+        await tester.pump();
+
+        // Tap Cancel
+        await tester.tap(find.text('Cancel'));
+        await tester.pump();
+
+        // Article should still be in the list
+        expect(find.text(testArticle.title), findsOneWidget);
+        expect(provider.savedArticles.length, 1);
       });
-
-      // Allow time for animations
-      await tester.pumpAndSettle();
-
-      // Swipe to delete
-      await tester.fling(
-        find.text(testArticle.title),
-        const Offset(-500, 0),
-        1000,
-      );
-      
-      // Allow time for swipe animation
-      await tester.pumpAndSettle();
-
-      // Tap Cancel
-      await tester.tap(find.text('Cancel'));
-      await tester.pumpAndSettle();
-
-      // Article should still be in the list
-      expect(find.text(testArticle.title), findsOneWidget);
-      expect(provider.savedArticles.length, 1);
     });
 
     testWidgets('confirmation dialog removes article when Remove is tapped', (WidgetTester tester) async {
-      final provider = MockNewsProvider();
-      provider.savedArticles = [testArticle];
-      
       await mockNetworkImagesFor(() async {
+        final provider = MockNewsProvider();
+        provider.setupSavedArticles([testArticle]);
+        
         await tester.pumpWidget(
           createMockTestApp(
             child: const SavedArticlesScreen(),
             mockProvider: provider,
           ),
         );
+
+        // Allow time for initial render
+        await tester.pump();
+
+        // Swipe to delete
+        await tester.fling(
+          find.text(testArticle.title),
+          const Offset(-500, 0),
+          1000,
+        );
+        
+        // Allow time for swipe animation
+        await tester.pump();
+
+        // Tap Remove
+        await tester.tap(find.text('Remove'));
+        await tester.pump();
+
+        // Article should be removed
+        expect(find.text(testArticle.title), findsNothing);
+        expect(provider.savedArticles.length, 0);
       });
-
-      // Allow time for animations
-      await tester.pumpAndSettle();
-
-      // Swipe to delete
-      await tester.fling(
-        find.text(testArticle.title),
-        const Offset(-500, 0),
-        1000,
-      );
-      
-      // Allow time for swipe animation
-      await tester.pumpAndSettle();
-
-      // Tap Remove
-      await tester.tap(find.text('Remove'));
-      await tester.pumpAndSettle();
-
-      // Article should be removed
-      expect(find.text(testArticle.title), findsNothing);
-      expect(provider.savedArticles.length, 0);
     });
 
     testWidgets('clear all button shows confirmation dialog', (WidgetTester tester) async {
-      final provider = MockNewsProvider();
-      provider.savedArticles = [testArticle];
-      
       await mockNetworkImagesFor(() async {
+        final provider = MockNewsProvider();
+        provider.setupSavedArticles([testArticle]);
+        
         await tester.pumpWidget(
           createMockTestApp(
             child: const SavedArticlesScreen(),
             mockProvider: provider,
           ),
         );
+
+        // Tap clear all button (icon button)
+        await tester.tap(find.byIcon(Icons.delete_sweep));
+        await tester.pump();
+
+        // Confirmation dialog should be displayed
+        expect(find.text('Clear All Saved Articles'), findsOneWidget);
+        expect(find.text('Are you sure you want to remove all saved articles? This action cannot be undone.'), findsOneWidget);
+        expect(find.text('Cancel'), findsOneWidget);
+        expect(find.text('Clear All'), findsOneWidget);
       });
-
-      // Tap clear all button (icon button)
-      await tester.tap(find.byIcon(Icons.delete_sweep));
-      await tester.pumpAndSettle();
-
-      // Confirmation dialog should be displayed
-      expect(find.text('Clear All Saved Articles'), findsOneWidget);
-      expect(find.text('Are you sure you want to remove all saved articles? This action cannot be undone.'), findsOneWidget);
-      expect(find.text('Cancel'), findsOneWidget);
-      expect(find.text('Clear All'), findsOneWidget);
     });
 
     testWidgets('clear all confirmation dialog cancels when Cancel is tapped', (WidgetTester tester) async {

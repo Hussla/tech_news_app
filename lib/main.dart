@@ -51,6 +51,7 @@ void main() async {
   
   if (!isTesting) {
     try {
+      // Only initialize Firebase if we're not in a test environment
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );

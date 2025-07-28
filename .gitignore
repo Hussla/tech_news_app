@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Cline/Claude development files - DO NOT COMMIT
+.clinerules/
+MemoryBank.md
+CodingStandard.md

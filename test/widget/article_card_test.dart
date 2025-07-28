@@ -23,6 +23,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:tech_news_app/models/article.dart';
 import 'package:tech_news_app/widgets/article_card.dart';
 import 'package:provider/provider.dart';
@@ -111,43 +112,14 @@ void main() {
     });
 
     testWidgets('displays image when imageUrl is provided', (WidgetTester tester) async {
-      // Create a transparent image for testing
-      final testImage = Uint8List.fromList([
-        // 1x1 transparent PNG
-        0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
-        0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
-        0x08, 0x06, 0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, 0x89, 0x00, 0x00, 0x00,
-        0x0D, 0x49, 0x44, 0x41, 0x54, 0x78, 0xDA, 0x62, 0x60, 0x60, 0x60, 0x00,
-        0x00, 0x00, 0x04, 0x00, 0x01, 0x27, 0x11, 0x81, 0x8E, 0x00, 0x00, 0x00,
-        0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
-      ]);
-      
-      // Mock the image network request
-      tester.binding.imageCache.clear();
-      tester.binding.imageCache.clearLiveImages();
-      
-      // Set up the mock message handler
-      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', (message) async {
-        final methodCall = const StandardMethodCodec().decodeMethodCall(message);
-        if (methodCall.method == 'ImageCache.putIfAbsent') {
-          final arguments = methodCall.arguments as Map<String, dynamic>;
-          final key = arguments['key'] as String;
-          if (key.contains(testArticle.imageUrl!)) {
-            return ByteData(8)..setInt32(0, 100)..setInt32(4, 100);
-          }
-        }
-        return null;
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createWidgetUnderTest(testArticle));
+
+        // Give the widget time to build
+        await tester.pump();
+
+        expect(find.byType(Image), findsOneWidget);
       });
-
-      await tester.pumpWidget(createWidgetUnderTest(testArticle));
-
-      // Give the widget time to build
-      await tester.pump();
-
-      expect(find.byType(Image), findsOneWidget);
-
-      // Clean up
-      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', null);
     });
 
     testWidgets('handles missing image gracefully', (WidgetTester tester) async {
@@ -219,18 +191,7 @@ void main() {
     });
 
     testWidgets('tapping card navigates to NewsDetailScreen', (WidgetTester tester) async {
-      // Mock the image network request
-      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', (message) async {
-        final methodCall = const StandardMethodCodec().decodeMethodCall(message);
-        if (methodCall.method == 'ImageCache.putIfAbsent') {
-          final arguments = methodCall.arguments as Map<String, dynamic>;
-          final key = arguments['key'] as String;
-          if (key.contains(testArticle.imageUrl!)) {
-            return ByteData(8)..setInt32(0, 100)..setInt32(4, 100);
-          }
-        }
-        return null;
-      });
+      await mockNetworkImagesFor(() async {
 
       await tester.pumpWidget(createWidgetUnderTest(testArticle));
 
@@ -243,9 +204,7 @@ void main() {
 
       // Should navigate to NewsDetailScreen
       expect(find.text('Article'), findsOneWidget);
-
-      // Clean up
-      tester.binding.defaultBinaryMessenger.setMockMessageHandler('flutter/io.dart', null);
+      });
     });
 
     testWidgets('tapping bookmark button toggles save state', (WidgetTester tester) async {
