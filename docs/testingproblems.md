@@ -10,7 +10,7 @@ This document tracks all known testing issues in the Tech News app. Each issue i
 
 ## Issue List
 
-### 1. Firebase Initialization Issues
+### 1. Firebase Initialisation Issues
 - **Symptoms**: 
   - "[core/no-app] No Firebase App '[DEFAULT]' has been created" errors
   - Tests fail when Firebase services are required
@@ -24,7 +24,7 @@ This document tracks all known testing issues in the Tech News app. Each issue i
 
 ### 2. Database Schema Issues
 - **Symptoms**:
-  - "Database not available on web: Bad state: databaseFactory not initialized"
+  - "Database not available on web: Bad state: databaseFactory not initialised"
   - "no such column: publishedAt" errors
   - Database operations fail in tests
 - **Affected tests**:
@@ -54,7 +54,7 @@ This document tracks all known testing issues in the Tech News app. Each issue i
   - login_screen_test.dart (2 tests)
   - widget_test.dart (1 test)
   - search_screen_test.dart (1 test)
-- **Root cause**: Provider setup issues and widget tree not properly initialized
+- **Root cause**: Provider setup issues and widget tree not properly initialised
 - **Status**: ❌ Not resolved
 
 ### 5. Async Handling Issues
@@ -70,7 +70,7 @@ This document tracks all known testing issues in the Tech News app. Each issue i
 ## Resolution Strategy
 
 ### Priority Order
-1. Fix Firebase initialization issues
+1. Fix Firebase initialisation issues
 2. Resolve database schema problems
 3. Address timer issues
 4. Fix widget rendering problems
@@ -78,11 +78,10 @@ This document tracks all known testing issues in the Tech News app. Each issue i
 
 ### Documentation Reference
 Refer to the following documentation for solutions:
-- [TESTING.md](TESTING.md) - Comprehensive testing guide
-- [FIREBASE_AUTH_MOCKS.md](FIREBASE_AUTH_MOCKS.md) - Firebase authentication mocking guide
+- [TESTING.md](TESTING.md) - Comprehensive testing guide (includes Firebase auth mocking section)
 
 ## Progress Tracking
-- [x] Issue 1: Firebase Initialization Issues
+- [x] Issue 1: Firebase Initialisation Issues
 - [ ] Issue 2: Database Schema Issues  
 - [ ] Issue 3: Timer Issues
 - [ ] Issue 4: Widget Rendering Issues

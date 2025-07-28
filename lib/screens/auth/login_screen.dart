@@ -1,5 +1,13 @@
 /// Login screen for the Tech News application.
 /// 
+/// **Attribution**: Authentication UI patterns adapted from:
+/// URL: https://docs.flutter.dev/data-and-backend/firebase-auth
+/// URL: https://material.io/design/color/dark-theme.html
+/// Summary: Learnt how to design authentication screens following Material Design
+/// principles, including proper gradient backgrounds, loading states, and user
+/// feedback patterns. Also learnt Firebase Auth integration patterns and OAuth
+/// flow implementation for Google Sign-In.
+/// 
 /// This screen provides user authentication functionality for the app,
 /// allowing users to sign in with Google or continue as a guest.
 /// 
@@ -103,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// This method constructs the entire login interface with:
   /// - A Scaffold as the root widget
   /// - A Container with a gradient background in the app's brand colors
-  /// - A centered Column containing:
+  /// - A centred Column containing:
   ///   * The app logo (newspaper icon)
   ///   * The app title and description
   ///   * Authentication buttons (Google Sign-In and Guest access)

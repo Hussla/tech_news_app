@@ -22,13 +22,20 @@ import 'package:tech_news_app/models/article.dart';
 
 /// The database service for the Tech News application.
 /// 
+/// **Attribution**: Singleton and Repository pattern implementation adapted from:
+/// URL: https://www.martinfowler.com/eaaCatalog/repository.html
+/// URL: https://pub.dev/packages/sqflite (official documentation)
+/// Summary: Learnt how to implement the Repository pattern for data access abstraction
+/// and proper singleton pattern for database connections. Also learnt SQLite schema
+/// design, database versioning, and proper async/await patterns for database operations.
+/// 
 /// This singleton class provides local persistence for saved articles using
 /// SQLite through the sqflite plugin. It implements the repository pattern
 /// to abstract database operations and provide a clean API for the rest
 /// of the application.
 /// 
 /// The service handles all aspects of database management:
-/// - Database creation and initialization
+/// - Database creation and initialisation
 /// - Article insertion, update, retrieval, and deletion
 /// - Connection management and error handling
 /// - Data conversion between Article objects and database records
@@ -83,7 +90,7 @@ class DatabaseService {
   /// The cached database instance.
   /// 
   /// This private field stores the database connection once it has been
-  /// initialized, ensuring that subsequent calls return the same connection.
+  /// initialised, ensuring that subsequent calls return the same connection.
   /// 
   /// References:
   /// - Database Connection: https://pub.dev/documentation/sqflite/latest/sqflite/Database-class.html

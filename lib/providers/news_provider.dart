@@ -16,6 +16,14 @@
 /// - HTTP Requests in Flutter: https://docs.flutter.dev/cookbook/networking/fetch-data
 /// - ChangeNotifier: https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html
 /// - Asynchronous Programming: https://dart.dev/codelabs/async-await
+/// 
+/// **Attribution**: Provider pattern implementation adapted from:
+/// URL: https://docs.flutter.dev/data-and-backend/state-mgmt/simple
+/// URL: https://pub.dev/packages/provider (official documentation)
+/// Summary: Learnt how to implement the Provider pattern for state management,
+/// including proper use of ChangeNotifier, notifyListeners, and async state
+/// management patterns. Also learnt best practices for separating business
+/// logic from UI components.
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;

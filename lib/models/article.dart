@@ -10,7 +10,7 @@
 /// 
 /// References:
 /// - Dart Classes: https://dart.dev/language/classes
-/// - JSON Serialization: https://docs.flutter.dev/data-and-backend/json
+/// - JSON Serialisation: https://docs.flutter.dev/data-and-backend/json
 /// - DateTime: https://api.flutter.dev/flutter/dart-core/DateTime-class.html
 class Article {
   /// The headline of the article
@@ -48,6 +48,12 @@ class Article {
   });
 
   /// Creates an Article instance from a JSON map.
+  /// 
+  /// **Attribution**: JSON serialisation pattern adapted from:
+  /// URL: https://docs.flutter.dev/data-and-backend/json
+  /// Summary: Learnt how to implement proper JSON serialisation and deserialisation
+  /// in Flutter, including handling nullable fields, DateTime parsing from ISO 8601
+  /// strings, and defensive programming practices for malformed JSON data.
   /// 
   /// This factory method converts a JSON map (typically received from an API)
   /// into an Article object. It handles the mapping of JSON keys to Article
@@ -91,7 +97,7 @@ class Article {
   /// - 'publishedAt': The publication date in ISO 8601 format
   /// 
   /// References:
-  /// - JSON Serialization: https://docs.flutter.dev/data-and-backend/json
+  /// - JSON Serialisation: https://docs.flutter.dev/data-and-backend/json
   /// - DateTime Formatting: https://api.flutter.dev/flutter/dart-core/DateTime/toIso8601String.html
   Map<String, dynamic> toJson() {
     return {

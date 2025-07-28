@@ -1,5 +1,13 @@
 /// Local notification service for the Tech News application.
 /// 
+/// **Attribution**: Local notifications implementation adapted from:
+/// URL: https://pub.dev/packages/flutter_local_notifications (official documentation)
+/// URL: https://docs.flutter.dev/data-and-backend/notifications
+/// Summary: Learnt how to implement local notifications including platform-specific
+/// initialisation, notification channels for Android, and proper notification
+/// scheduling. Also learnt best practices for notification permissions and
+/// user experience considerations.
+/// 
 /// This service provides local notification functionality using the
 /// flutter_local_notifications plugin. It handles initialisation
 /// and display of notifications to keep users informed about news updates.
@@ -8,7 +16,7 @@
 /// - [flutter_local_notifications] - For displaying local notifications
 /// - [FlutterLocalNotificationsPlugin] - The main class for notification operations
 /// - [AndroidInitializationSettings] - For configuring Android notification settings
-/// - [NotificationDetails] - For specifying notification appearance and behavior
+/// - [NotificationDetails] - For specifying notification appearance and behaviour
 /// 
 /// References:
 /// - flutter_local_notifications Plugin: https://pub.dev/packages/flutter_local_notifications
@@ -22,7 +30,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// flutter_local_notifications plugin to show alerts about news updates.
 /// 
 /// The service handles:
-/// - Initialization of the notification system
+/// - Initialisation of the notification system
 /// - Configuration of notification channels (Android)
 /// - Display of notifications with appropriate settings
 /// 

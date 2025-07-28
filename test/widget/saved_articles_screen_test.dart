@@ -6,8 +6,8 @@
 /// - List of saved articles display
 /// - Publication date formatting
 /// - Navigation to NewsDetailScreen
-/// - Swipe to delete with confirmation dialog
-/// - Clear all button with confirmation dialog
+/// - Swipe to delete with confirmation dialogue
+/// - Clear all button with confirmation dialogue
 /// - Snackbar with undo option
 /// - UI styling and layout
 /// 
@@ -147,7 +147,7 @@ void main() {
       });
     }, timeout: Timeout(Duration(seconds: 120)));
 
-    testWidgets('swipe to delete shows confirmation dialog', (WidgetTester tester) async {
+    testWidgets('swipe to delete shows confirmation dialogue', (WidgetTester tester) async {
       await mockNetworkImagesFor(() async {
         final provider = MockNewsProvider();
         provider.setupSavedArticles([testArticle]);
@@ -168,11 +168,11 @@ void main() {
           const Offset(-500, 0),
         );
         
-        // Allow time for swipe animation and dialog to appear
+        // Allow time for swipe animation and dialogue to appear
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 100));
 
-        // Confirmation dialog should be displayed
+        // Confirmation dialogue should be displayed
         expect(find.text('Remove Article'), findsOneWidget);
         expect(find.text('Remove "Saved Article" from saved articles?'), findsOneWidget);
         expect(find.text('Cancel'), findsOneWidget);

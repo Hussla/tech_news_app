@@ -1,5 +1,13 @@
 /// Voice search screen for the Tech News application.
 /// 
+/// **Attribution**: Speech recognition implementation adapted from:
+/// URL: https://pub.dev/packages/speech_to_text (official documentation)
+/// URL: https://flutter.dev/docs/cookbook/effects/visual-feedback
+/// Summary: Learnt how to implement speech-to-text functionality including proper
+/// permission handling, listening state management, and visual feedback patterns.
+/// Also learnt UI animation patterns for voice interfaces and error handling
+/// for speech recognition failures.
+/// 
 /// This screen provides a voice-based search interface that allows users
 /// to search for technology news articles by speaking into their device's
 /// microphone. It features visual feedback during listening, text

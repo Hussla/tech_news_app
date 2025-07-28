@@ -63,7 +63,7 @@ class QRCodeScannerScreen extends StatefulWidget {
 /// 1. Requesting camera permissions
 /// 2. Setting up and stopping the camera
 /// 3. Simulating QR code scanning for the web demo
-/// 4. Displaying scan results in a dialog
+/// 4. Displaying scan results in a dialogue
 /// 5. Opening URLs from QR codes
 /// 
 /// For the web demo, camera access is simulated with mock functionality
@@ -104,6 +104,12 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
 
   /// Requests camera permission from the user.
   /// 
+  /// **Attribution**: Implementation pattern adapted from:
+  /// URL: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  /// Summary: Learnt how to properly request camera permissions using getUserMedia API,
+  /// including the specific parameters for rear-facing camera ('environment' mode)
+  /// and proper error handling for permission denied scenarios.
+  /// 
   /// This method:
   /// 1. Attempts to access the device's camera using getUserMedia
   /// 2. Requests permission for the rear-facing camera (environment)
@@ -143,6 +149,12 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   }
 
   /// Sets up the camera feed display.
+  /// 
+  /// **Attribution**: Video element configuration adapted from:
+  /// URL: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video
+  /// Summary: Learnt how to properly configure HTML video elements for camera streams,
+  /// including the srcObject property for MediaStream assignment and objectFit styling
+  /// for maintaining aspect ratio in responsive containers.
   /// 
   /// This method:
   /// 1. Creates a new HTML video element
@@ -215,7 +227,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   /// 3. Updates the state with:
   ///    * The scanned QR code text
   ///    * Scanning state set to false
-  /// 4. Displays the scan result in a dialog
+  /// 4. Displays the scan result in a dialogue
   /// 
   /// The method is used in the web demo to simulate QR code
   /// detection since the actual QR code scanner plugin may
@@ -246,11 +258,11 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
       _isScanning = false;
     });
 
-    // Show result dialog
+    // Show result dialogue
     _showQRResult(randomCode);
   }
 
-  /// Displays the QR code scan result in a dialog.
+  /// Displays the QR code scan result in a dialogue.
   /// 
   /// This method:
   /// 1. Shows an AlertDialog with:
@@ -260,9 +272,9 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   ///    * Action buttons based on the QR code content
   /// 2. If the QR code contains a URL:
   ///    * Shows an "Open Link" button to launch the URL
-  /// 3. Always shows a "Close" button to dismiss the dialog
+  /// 3. Always shows a "Close" button to dismiss the dialogue
   /// 
-  /// The dialog provides a clear interface for users to view
+  /// The dialogue provides a clear interface for users to view
   /// and interact with the scanned QR code content.
   /// 
   /// For the web demo, this method displays the result of

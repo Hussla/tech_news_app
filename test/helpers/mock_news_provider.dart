@@ -4,8 +4,8 @@ import 'package:tech_news_app/providers/news_provider.dart';
 
 /// Mock NewsProvider for testing purposes.
 /// 
-/// This class extends NewsProvider but prevents initialization issues
-/// by using a static flag to control constructor behavior.
+/// This class extends NewsProvider but prevents initialisation issues
+/// by using a static flag to control constructor behaviour.
 class MockNewsProvider extends NewsProvider {
   static bool _isTesting = false;
   

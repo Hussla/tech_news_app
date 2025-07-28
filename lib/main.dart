@@ -1,5 +1,14 @@
 /// Main entry point for the Tech News application.
 /// 
+/// **Attribution**: Application architecture patterns adapted from:
+/// URL: https://docs.flutter.dev/development/ui/interactive
+/// URL: https://docs.flutter.dev/data-and-backend/state-mgmt/simple
+/// URL: https://firebase.flutter.dev/docs/core/overview
+/// Summary: Learnt how to structure Flutter applications following best practices,
+/// including proper Firebase initialisation, Provider pattern for state management,
+/// Material Design implementation, and app lifecycle management. Also learnt
+/// proper error handling for Firebase initialisation failures.
+/// 
 /// This file contains the main() function and the MyApp widget which serves as
 /// the root of the application widget tree.
 /// 
@@ -46,7 +55,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Check if we're in a test environment
-  // This prevents Firebase initialization during tests
+  // This prevents Firebase initialisation during tests
   final isTesting = const bool.fromEnvironment('FLUTTER_TEST');
   
   if (!isTesting) {
@@ -73,7 +82,7 @@ void main() async {
         _handleNotificationTap(message.data['type']);
       });
     } catch (e) {
-      print('Firebase initialization error: $e');
+      print('Firebase initialisation error: $e');
     }
   }
   
@@ -85,7 +94,7 @@ void main() async {
 /// This StatelessWidget builds the MaterialApp with the following configuration:
 /// - Title: 'Tech News' - The title that appears in the app switcher
 /// - debugShowCheckedModeBanner: false - Hides the debug banner in debug mode
-/// - Theme: Uses Material 3 design with a blue seed color
+/// - Theme: Uses Material 3 design with a blue seed colour
 /// - Home: The LoginScreen is the initial screen
 /// - Routes: Defines named routes for navigation between screens
 /// 

@@ -1,7 +1,7 @@
 /// Article model tests for the Tech News application.
 /// 
 /// This test file validates the Article model's functionality including:
-/// - JSON serialization and deserialization
+/// - JSON serialisation and deserialisation
 /// - Handling of null values and missing fields
 /// - Object equality and hashing
 /// - String representation

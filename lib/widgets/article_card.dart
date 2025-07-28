@@ -64,7 +64,7 @@ class ArticleCard extends StatelessWidget {
   /// Builds a shimmer placeholder for when the article image is loading.
   /// 
   /// This widget displays a gradient background with a circular progress
-  /// indicator in the center, providing visual feedback that the image
+  /// indicator in the centre, providing visual feedback that the image
   /// is being loaded. The shimmer effect is created using a diagonal
   /// gradient from light grey to white and back to light grey.
   /// 

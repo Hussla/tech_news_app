@@ -1,5 +1,13 @@
 /// Location-based screen for the Tech News application.
 /// 
+/// **Attribution**: Location services implementation adapted from:
+/// URL: https://pub.dev/packages/geolocator (official documentation)
+/// URL: https://pub.dev/packages/geocoding (official documentation)
+/// Summary: Learnt how to implement location services including permission requests,
+/// GPS coordinate retrieval, and geocoding for address conversion. Also learnt
+/// proper error handling for location services and privacy considerations for
+/// location-based features.
+/// 
 /// This screen provides location-aware functionality, showing technology
 /// events and news near the user's current location.
 /// 
