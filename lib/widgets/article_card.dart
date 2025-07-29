@@ -24,7 +24,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tech_news_app/models/article.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:tech_news_app/screens/news_detail_screen.dart';
-import 'package:intl/intl.dart';
 
 /// A reusable widget that displays a news article in a card format.
 /// 
@@ -311,6 +310,64 @@ class ArticleCard extends StatelessWidget {
                               color: Colors.grey.shade500,
                             ),
                           ),
+                          const SizedBox(width: 8),
+                          // Content enhancement indicator
+                          if (article.content != null && article.content!.length > 500)
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.green.withOpacity(0.3)),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.auto_awesome,
+                                    size: 10,
+                                    color: Colors.green.shade600,
+                                  ),
+                                  const SizedBox(width: 2),
+                                  Text(
+                                    'Enhanced',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.green.shade600,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          else if (article.content != null && article.content!.length <= 500)
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.upgrade,
+                                    size: 10,
+                                    color: Colors.orange.shade600,
+                                  ),
+                                  const SizedBox(width: 2),
+                                  Text(
+                                    'Enhance',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.orange.shade600,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           const Spacer(),
                           Icon(
                             Icons.arrow_forward_ios,

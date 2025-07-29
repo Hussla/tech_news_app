@@ -29,6 +29,7 @@ import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:tech_news_app/screens/home_screen.dart';
 import 'package:tech_news_app/screens/auth/login_screen.dart';
+import 'package:tech_news_app/screens/voice_search_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:tech_news_app/services/local_notification_service.dart';
@@ -54,7 +55,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Check if we're in a test environment
+  // Check if we're in a test environment - hot reload trigger
   // This prevents Firebase initialisation during tests
   final isTesting = const bool.fromEnvironment('FLUTTER_TEST');
   
@@ -125,6 +126,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => const HomeScreen(),
           '/login': (context) => const LoginScreen(),
+          '/voice-search': (context) => const VoiceSearchScreen(),
         },
       ),
     );
