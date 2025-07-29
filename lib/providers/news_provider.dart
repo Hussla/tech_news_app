@@ -159,7 +159,7 @@ The developer tools have received significant updates, including improved debugg
 
 This release also includes important security updates and bug fixes that improve the overall stability and reliability of Flutter applications across all supported platforms.''',
           url: 'https://docs.flutter.dev/release/release-notes/release-notes-3.27.0',
-          imageUrl: 'https://docs.flutter.dev/assets/images/shared/brand/flutter/logo/flutter-logomark-320px.png',
+          imageUrl: 'https://storage.googleapis.com/cms-storage-bucket/780e0e64d323aad2cdd5.png',
           publishedAt: DateTime.now().subtract(const Duration(hours: 6)),
         ),
         Article(
@@ -199,21 +199,21 @@ Tesla\'s focus on the Cybertruck and autonomous vehicles represents a significan
           publishedAt: DateTime.now().subtract(const Duration(hours: 10)),
         ),
         Article(
-          title: 'Meta Quest 3S launches as affordable entry into mixed reality',
-          description: 'Meta releases Quest 3S as a more affordable alternative to Quest 3, bringing mixed reality to mainstream consumers.',
-          content: '''Meta has launched the Quest 3S, a more affordable version of its popular Quest 3 mixed reality headset, designed to make VR and mixed reality more accessible to mainstream consumers. The new headset offers many of the same core features as the Quest 3 at a significantly lower price point.
+          title: 'Meta Orion AR glasses: Hands-on with the future of computing',
+          description: 'The Verge goes hands-on with Meta\'s impressive Orion AR glasses prototype, exploring what could be the next computing platform.',
+          content: '''Meta has unveiled Orion, its first pair of augmented reality glasses that represent CEO Mark Zuckerberg\'s multibillion-dollar bet on the computers that come after smartphones. While not yet a consumer product, Orion demonstrates impressive technological breakthroughs in AR display technology.
 
-The Quest 3S maintains the same powerful Snapdragon XR2 Gen 2 processor as its more expensive sibling, ensuring smooth performance across VR games and mixed reality applications. It features the same hand tracking capabilities and supports the full Quest ecosystem of apps and games.
+The glasses feature custom-designed Micro LED projectors that beam graphics via waveguides in silicon carbide lenses. This advanced material choice enables a 70-degree field of view - wider than any AR glasses to date - while maintaining relatively lightweight 98-gram frames made of magnesium.
 
-Key differences include a slightly lower resolution display and reduced storage options, but Meta has maintained the core mixed reality functionality that allows users to see and interact with their real environment while using VR applications. The device supports both VR and AR experiences seamlessly.
+Orion operates through a three-part system: the glasses themselves, a neural wristband for control, and a wireless compute puck. The neural wristband uses electromyography (EMG) to interpret hand gestures in milliseconds, creating an almost mind-reading control experience.
 
-The launch represents Meta\'s continued investment in making VR mainstream, following the success of the Quest 2 which became the best-selling VR headset. The company is betting that a lower price point will attract more consumers to try mixed reality technology.
+During hands-on testing, Orion successfully demonstrated AI-powered object recognition, 3D gaming experiences, and video calling capabilities. The display quality proved surprisingly crisp for the form factor, though battery life remains limited to about two hours.
 
-The Quest 3S is compatible with the entire Quest software library and receives the same regular updates as other Quest devices. Meta continues to invest heavily in content creation and developer tools to expand the ecosystem of available experiences.
+Meta originally planned to ship Orion as a consumer product but decided against it due to manufacturing costs around \$10,000 per unit, primarily from the expensive silicon carbide lenses. Instead, the company produced about 1,000 units for development and demonstrations.
 
-This release comes as competition in the VR space intensifies, with Apple\'s Vision Pro representing the premium end of the market while companies like Meta focus on affordability and accessibility.''',
-          url: 'https://www.roadtovr.com/meta-quest-3s-review-affordable-mixed-reality/',
-          imageUrl: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc696?w=400&h=250&fit=crop',
+The next consumer version is expected in a few years with improved resolution, brightness, and affordability comparable to today\'s phones and laptops. Meta sees this as part of a gradual march toward full AR glasses that could eventually replace smartphones.''',
+          url: 'https://www.theverge.com/24253908/meta-orion-ar-glasses-demo-mark-zuckerberg-interview',
+          imageUrl: 'https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25637093/247284_Project_Orion_VPavic_0337.jpg?quality=90&strip=all&crop=0,0,100,100',
           publishedAt: DateTime.now().subtract(const Duration(hours: 12)),
         ),
         Article(
@@ -413,7 +413,7 @@ Early users report significant improvements in mathematical problem-solving, sci
           description: 'Flutter 3.27 introduces new Material Design 3 components, enhanced performance optimizations, and improved developer tooling.',
           content: 'Flutter 3.27 introduces significant improvements to the cross-platform development framework...',
           url: 'https://docs.flutter.dev/release/release-notes/release-notes-3.27.0',
-          imageUrl: 'https://docs.flutter.dev/assets/images/shared/brand/flutter/logo/flutter-logomark-320px.png',
+          imageUrl: 'https://storage.googleapis.com/cms-storage-bucket/780e0e64d323aad2cdd5.png',
           publishedAt: DateTime.now().subtract(const Duration(hours: 1)),
         ),
         Article(
@@ -455,11 +455,11 @@ Early users report significant improvements in mathematical problem-solving, sci
           publishedAt: DateTime.now().subtract(const Duration(hours: 1)),
         ),
         Article(
-          title: 'Meta Quest 3S launches as affordable entry into mixed reality',
-          description: 'Meta releases Quest 3S as a more affordable alternative to Quest 3, bringing mixed reality to mainstream consumers.',
-          content: 'Meta has launched the Quest 3S, a more affordable version of its popular Quest 3 mixed reality headset...',
-          url: 'https://www.roadtovr.com/meta-quest-3s-review-affordable-mixed-reality/',
-          imageUrl: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc696?w=400&h=250&fit=crop',
+          title: 'Meta Orion AR glasses: Hands-on with the future of computing',
+          description: 'The Verge goes hands-on with Meta\'s impressive Orion AR glasses prototype, exploring what could be the next computing platform.',
+          content: 'Meta has unveiled Orion, its first pair of augmented reality glasses that represent CEO Mark Zuckerberg\'s multibillion-dollar bet on the computers that come after smartphones...',
+          url: 'https://www.theverge.com/24253908/meta-orion-ar-glasses-demo-mark-zuckerberg-interview',
+          imageUrl: 'https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25637093/247284_Project_Orion_VPavic_0337.jpg?quality=90&strip=all&crop=0,0,100,100',
           publishedAt: DateTime.now().subtract(const Duration(hours: 3)),
         ),
       ];
