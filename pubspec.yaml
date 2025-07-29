@@ -22,7 +22,6 @@ dependencies:
   camera: ^0.11.2
   qr_code_scanner: ^1.0.0-nullsafety.1
   share_plus: ^11.0.0
-  sms_advanced: ^1.0.1
   speech_to_text: ^7.2.0
   flutter_svg: ^2.0.10
   cached_network_image: ^3.4.1
