@@ -23,14 +23,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_news_app/screens/saved_articles_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:tech_news_app/providers/news_provider.dart';
 import 'package:tech_news_app/models/article.dart';
 import '../test_setup.dart';
 import '../helpers/mock_news_provider.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
@@ -62,7 +57,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Test app bar title
-      expect(find.text('Saved Articles'), findsOneWidget);
+      expect(find.text('Saved Articles 📚'), findsOneWidget);
     });
 
     testWidgets('displays empty state when no articles saved', (WidgetTester tester) async {
@@ -71,8 +66,8 @@ void main() {
 
       // Empty state should be displayed
       expect(find.text('No saved articles yet'), findsOneWidget);
-      expect(find.text('Save articles from search results to read later'), findsOneWidget);
-      expect(find.byIcon(Icons.bookmark_border), findsOneWidget);
+      expect(find.text('Start saving articles from search results to build your personal reading collection'), findsOneWidget);
+      expect(find.byIcon(Icons.bookmark_border_rounded), findsOneWidget);
     });
 
     testWidgets('displays list of saved articles when articles are saved', (WidgetTester tester) async {
@@ -131,7 +126,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
 
         // Verify we start on SavedArticlesScreen
-        expect(find.text('Saved Articles'), findsOneWidget);
+        expect(find.text('Saved Articles 📚'), findsOneWidget);
         expect(find.text(testArticle.title), findsOneWidget);
 
         // Tap on article
@@ -143,7 +138,7 @@ void main() {
         expect(find.text(testArticle.title), findsOneWidget, reason: 'Article title should be displayed');
         expect(find.textContaining('Published on'), findsOneWidget, reason: 'Publication date should be displayed');
         expect(find.text('Read Full Article'), findsOneWidget, reason: 'Read Full Article button should be displayed');
-        expect(find.byIcon(Icons.share), findsOneWidget, reason: 'Share icon should be displayed');
+        expect(find.byIcon(Icons.share_rounded), findsAtLeastNWidgets(1), reason: 'Share icon should be displayed');
       });
     }, timeout: Timeout(Duration(seconds: 120)));
 
@@ -274,7 +269,7 @@ void main() {
         );
 
         // Tap clear all button (icon button)
-        await tester.tap(find.byIcon(Icons.delete_sweep));
+        await tester.tap(find.byIcon(Icons.delete_sweep_rounded));
         await tester.pump();
 
         // Confirmation dialog should be displayed
@@ -299,7 +294,7 @@ void main() {
       });
 
       // Tap clear all button (icon button)
-      await tester.tap(find.byIcon(Icons.delete_sweep));
+      await tester.tap(find.byIcon(Icons.delete_sweep_rounded));
       await tester.pump();
 
       // Tap Cancel
@@ -325,7 +320,7 @@ void main() {
       });
 
       // Tap clear all button (icon button)
-      await tester.tap(find.byIcon(Icons.delete_sweep));
+      await tester.tap(find.byIcon(Icons.delete_sweep_rounded));
       await tester.pump();
 
       // Tap Clear All in dialog

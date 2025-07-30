@@ -131,10 +131,11 @@ Future<void> runWithFakeAsync(Future<void> Function() testFunction) async {
 }
 
 
-/// Creates a MaterialApp widget with proper Provider setup for testing.
+/// Creates a MaterialApp widget with proper test configuration.
 /// 
-/// This helper function creates a consistent widget tree for testing
-/// that includes all necessary providers and routing configuration.
+/// This function creates a MaterialApp with the necessary providers
+/// for testing. It can use either a mock or real NewsProvider based
+/// on the useMockProvider parameter.
 /// 
 /// Parameters:
 /// - [child]: The widget to wrap in the MaterialApp
@@ -153,6 +154,15 @@ Widget createTestApp({
         value: mock,
         child: child,
       ),
+      routes: {
+        '/voice-search': (context) => const Scaffold(
+          body: Center(child: Text('Voice Search Screen')),
+        ),
+        '/qr-scanner': (context) => const Scaffold(
+          body: Center(child: Text('QR Scanner Screen')),
+        ),
+        '/home': (context) => const HomeScreen(),
+      },
     );
   } else {
     return MaterialApp(
@@ -160,6 +170,15 @@ Widget createTestApp({
         create: (context) => NewsProvider(),
         child: child,
       ),
+      routes: {
+        '/voice-search': (context) => const Scaffold(
+          body: Center(child: Text('Voice Search Screen')),
+        ),
+        '/qr-scanner': (context) => const Scaffold(
+          body: Center(child: Text('QR Scanner Screen')),
+        ),
+        '/home': (context) => const HomeScreen(),
+      },
     );
   }
 }

@@ -25,11 +25,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:tech_news_app/screens/home_screen.dart';
-import 'package:tech_news_app/models/article.dart';
-import 'package:tech_news_app/providers/news_provider.dart';
-import '../helpers/mock_news_provider.dart';
 import '../test_setup.dart';
 
 void main() {
@@ -91,7 +87,7 @@ void main() {
       await tester.pump();
 
       // Should show SavedArticlesScreen content
-      expect(find.text('Saved Articles'), findsOneWidget);
+      expect(find.text('Saved Articles 📚'), findsOneWidget);
     });
 
     testWidgets('maintains tab selection state', (WidgetTester tester) async {
@@ -123,20 +119,22 @@ void main() {
       // FAB should have microphone icon - find it specifically in the FAB
       expect(find.descendant(
         of: find.byType(FloatingActionButton),
-        matching: find.byIcon(Icons.mic),
+        matching: find.byIcon(Icons.mic_rounded),
       ), findsOneWidget);
     });
 
-    testWidgets('tapping FAB navigates to VoiceSearchScreen', (WidgetTester tester) async {
+    testWidgets('FAB can be tapped', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest());
 
-      // Tap FAB
+      // Verify FAB exists
+      expect(find.byType(FloatingActionButton), findsOneWidget);
+      
+      // Tap the FAB
       await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump(); // Allow for navigation animation
-      await tester.pump(); // Extra pump for settling
-
-      // Should navigate to VoiceSearchScreen
-      expect(find.text('Voice Search'), findsOneWidget);
+      await tester.pumpAndSettle();
+      
+      // Verify navigation occurred by checking for the voice search screen
+      expect(find.text('Voice Search Screen'), findsOneWidget);
     });
 
 

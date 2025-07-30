@@ -76,14 +76,14 @@ void main() {
         await tester.pumpAndSettle(const Duration(seconds: 5));
 
         // Navigate to saved articles
-        final savedIcon = find.byIcon(Icons.bookmark);
+        final savedIcon = find.byIcon(Icons.bookmark_border_rounded);
         if (tester.any(savedIcon)) {
           await tester.tap(savedIcon);
           await tester.pumpAndSettle(const Duration(seconds: 5));
         }
         
         // Verify saved articles screen loads
-        expect(find.text('Saved Articles'), findsOneWidget);
+        expect(find.text('Saved Articles 📚'), findsOneWidget);
       });
     });
 

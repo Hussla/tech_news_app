@@ -1,26 +1,21 @@
-import 'package:flutter/foundation.dart';
-import 'package:tech_news_app/models/article.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
+import 'package:tech_news_app/models/article.dart';
 
 /// Mock NewsProvider for testing purposes.
 /// 
 /// This class extends NewsProvider but prevents initialisation issues
 /// by using a static flag to control constructor behaviour.
 class MockNewsProvider extends NewsProvider {
-  static bool _isTesting = false;
-  
   List<Article> _mockArticles = [];
   List<Article> _mockSavedArticles = [];
   String _mockSearchQuery = '';
   bool _mockIsLoading = false;
   bool _disposed = false;
 
-  MockNewsProvider() : super() {
-    _isTesting = true;
-  }
+  MockNewsProvider() : super();
 
   static void setTestingMode(bool testing) {
-    _isTesting = testing;
+    // This method is kept for API compatibility but doesn't do anything
   }
 
   // Override all getters to use mock data
@@ -75,7 +70,6 @@ class MockNewsProvider extends NewsProvider {
   @override
   void dispose() {
     _disposed = true;
-    _isTesting = false;
     super.dispose();
   }
 
@@ -89,10 +83,15 @@ class MockNewsProvider extends NewsProvider {
   @override
   Future<void> searchNews(String query) async {
     if (_disposed) return;
+    
+    // Simulate loading state
+    _mockIsLoading = true;
+    notifyListeners();
+    
     _mockSearchQuery = query;
     
     // Mock search results based on the query
-    if (query.isNotEmpty) {
+    if (query.isNotEmpty && !query.contains('nonexistentquery123xyz')) {
       _mockArticles = [
         Article(
           title: 'Mock $query Article',
@@ -106,9 +105,8 @@ class MockNewsProvider extends NewsProvider {
       _mockArticles = [];
     }
     
-    if (!_disposed) {
-      notifyListeners();
-    }
+    _mockIsLoading = false;
+    notifyListeners();
   }
 
   @override
@@ -136,35 +134,30 @@ class MockNewsProvider extends NewsProvider {
     return _mockSavedArticles.any((article) => article.url == url);
   }
 
-  // Mock method for loading saved articles in tests
   Future<void> loadSavedArticles() async {
     if (_disposed) return;
     // Mock implementation - no database operations
   }
 
-  // Mock method for fetching news by category in tests
-  Future<void> fetchNewsByCategory(String category) async {
+  Future<void> clearAllSavedArticles() async {
     if (_disposed) return;
-    // Mock implementation - no actual API call
-  }
-
-  /// Setup method for easily configuring saved articles in tests.
-  /// 
-  /// This method allows tests to easily set up a list of saved articles
-  /// without going through the normal save/unsave flow.
-  void setupSavedArticles(List<Article> articles) {
-    _mockSavedArticles = List.from(articles);
+    _mockSavedArticles.clear();
     if (!_disposed) {
       notifyListeners();
     }
   }
 
-  /// Setup method for easily configuring main articles list in tests.
-  /// 
-  /// This method allows tests to easily set up a list of articles
-  /// to simulate different loading states.
-  void setupArticles(List<Article> articles) {
+  /// Helper method to set articles directly for testing
+  void setArticles(List<Article> articles) {
     _mockArticles = List.from(articles);
+    if (!_disposed) {
+      notifyListeners();
+    }
+  }
+
+  /// Setup method for easily configuring saved articles in tests.
+  void setupSavedArticles(List<Article> articles) {
+    _mockSavedArticles = List.from(articles);
     if (!_disposed) {
       notifyListeners();
     }

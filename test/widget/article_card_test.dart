@@ -29,7 +29,6 @@ import 'package:tech_news_app/widgets/article_card.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_news_app/providers/news_provider.dart';
 import '../helpers/mock_news_provider.dart';
-import 'package:flutter/services.dart';
 import '../test_setup.dart';
 
 void main() {
