@@ -5,7 +5,7 @@
 
 A modern technology news application built with Flutter and Dart featuring advanced UI design, verified article accessibility, voice search capabilities, and comprehensive content extraction. The app showcases Flutter best practices with Material 3 design, systematic URL verification, and enterprise-grade documentation.
 
-## � Latest Update - January 2025
+## Latest Update - January 2025
 
 **PERFECT 100% TEST COVERAGE ACHIEVED**
 - **Test Results**: 97/97 tests passing (100% success rate)
@@ -14,7 +14,7 @@ A modern technology news application built with Flutter and Dart featuring advan
 - **Quality Assurance**: Complete test suite with Unit, Widget, and Integration tests
 - **Performance**: Optimized build process with 17.6s pod install and smooth Xcode integration
 
-## �🌟 Key Highlights
+## Key Highlights
 
 - **Modern UI Design**: Material 3 components with gradient themes and enhanced visual appeal
 - **100% Verified URLs**: All article links systematically tested using Playwright automation (Zero 404 errors)
