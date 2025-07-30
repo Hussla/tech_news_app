@@ -44,6 +44,18 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Environment variables and secrets - DO NOT COMMIT
+.env
+.env.local
+.env.production
+*.env
+api_keys.dart
+secrets.dart
+
+# Third-party API keys
+newsapi_key.txt
+firecrawl_api_key.txt
+
 # Cline/Claude development files - DO NOT COMMIT
 .clinerules/
 MemoryBank.md
