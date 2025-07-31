@@ -2,6 +2,9 @@
 
 A comprehensive Flutter mobile application demonstrating modern mobile development practices with advanced features including voice search, QR code scanning, location services, and offline functionality.
 
+Author: Haleem Hussain
+GitHub repo - (https://github.com/Hussla/tech_news_app)
+
 ## 🚀 Current Status - 
 
 **✅ Live iOS Deployment**: Successfully deployed and running on iPhone  
