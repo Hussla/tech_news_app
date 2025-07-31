@@ -23,6 +23,7 @@ GitHub repo - (https://github.com/Hussla/tech_news_app)
 - [🚀 Installation & Setup](#-installation--setup)
 - [📱 Mobile Features Integration](#-mobile-features-integration)
 - [📚 Documentation](#-documentation)
+- [📖 Technical Walkthrough](#-technical-walkthrough)
 - [🔧 Recent Improvements](#-recent-improvements--debugging-solutions)
 - [📸 App Demonstration](#-app-demonstration--visual-guide)
 
@@ -205,9 +206,14 @@ tech_news_app/
 │   ├── REFERENCES.md    # 150+ technical references with official links
 │   ├── TESTING.md       # Comprehensive testing methodology and strategy
 │   ├── report.md        # Detailed application publishing and analysis report
-│   ├── walkthrough.md   # In-depth code walkthrough and implementation guide
-│   ├── testingproblems.md  # Testing challenges and solutions documentation
-│   └── unit-test.md     # Unit testing documentation and best practices
+│   ├── walkthrough.md   # Technical architecture walkthrough with app demonstration
+│   └── demo-images/     # Application screenshots and visual documentation
+│       ├── IMG_5403.PNG # App launch and home screen
+│       ├── IMG_5404.jpeg # Navigation and interface
+│       ├── IMG_5415.png # Voice search functionality
+│       ├── IMG_5417.png # QR code scanning
+│       ├── IMG_5418.png # Location services
+│       └── [30+ more]   # Complete feature demonstration
 ├── lib/                 # Flutter application source code
 │   ├── firebase_options.dart  # Firebase configuration
 │   ├── main.dart        # Application entry point
@@ -706,6 +712,22 @@ Each file includes detailed attribution to learning sources:
 - [`docs/report.md`](docs/report.md): Comprehensive project analysis/Publishing Report
 - [`docs/TESTING.md`](docs/TESTING.md): Detailed testing strategy and coverage analysis
 - [`docs/REFERENCES.md`](docs/REFERENCES.md): Complete list of 150+ official documentation references
+
+## 📖 Technical Walkthrough
+
+For a comprehensive technical demonstration of the application, including detailed architecture explanations, code implementation, and visual app demonstration with screenshots, see:
+
+**[`docs/walkthrough.md`](docs/walkthrough.md) - Technical Architecture Walkthrough**
+
+This document provides:
+- **Complete Architecture Overview**: Clean architecture implementation with detailed explanations
+- **Code Implementation Details**: In-depth analysis of all major components and patterns
+- **Live App Demonstration**: 20+ screenshots from the deployed iOS application
+- **Mobile Features Integration**: Voice search, QR scanning, location services, and native sharing
+- **Testing & Quality Metrics**: 97/97 tests passing with comprehensive coverage analysis
+- **Production Deployment**: Live iOS deployment with performance metrics and build details
+
+The walkthrough document serves as the primary technical reference for understanding the complete application architecture and implementation approach.
 
 ## 🔧 Recent Improvements & Debugging Solutions
 
