@@ -1,6 +1,67 @@
 # Tech News App - Comprehensive Documentation References
 
-This document provides a comprehensive catalogue of all technical references, documentation sources, and resources utilised in the development and testing of the Tech News application. These references support the application's sophisticated architecture, comprehensive testing suite (92 tests), and professional development practices with **150+ official documentation links** integrated throughout the codebase.
+This document provides a comprehensive catalogue of all technical references, documentation sources, and resources utilised in the development and testing of the Tech News application. These references support the application's sophisticated architecture, comprehensive testing suite (97 tests), and professional development practices with **200+ official documentation links** integrated throughout the codebase.
+
+## 📱 **Mobile Application Development**
+
+### **Flutter SDK & Platform Support**
+- [Flutter Documentation](https://docs.flutter.dev/) - Official Flutter development framework documentation
+- [Flutter SDK Installation](https://docs.flutter.dev/get-started/install) - Platform-specific installation guides
+- [Flutter for Mobile Development](https://docs.flutter.dev/get-started/test-drive) - Mobile app development guide
+- [Platform Integration](https://docs.flutter.dev/development/platform-integration) - Native platform feature integration
+- [Cross-Platform Development](https://docs.flutter.dev/development/platform-integration/platform-channels) - Multi-platform app development
+
+### **Application Architecture & Design Patterns**
+- [App Architecture Guide](https://docs.flutter.dev/development/data-and-backend/state-mgmt/intro) - Flutter application structure patterns
+- [Material Design Implementation](https://docs.flutter.dev/design/material) - Google's Material Design system
+- [Widget Architecture](https://docs.flutter.dev/development/ui/widgets-intro) - Flutter widget system fundamentals
+- [Navigation Patterns](https://docs.flutter.dev/ui/navigation) - App navigation and routing strategies
+
+## 📚 **Core Flutter & Dart Documentation**
+
+### **Widget System & UI Development**
+- [Widget Catalog](https://docs.flutter.dev/development/ui/widgets) - Comprehensive widget reference
+- [Layout Widgets](https://docs.flutter.dev/ui/widgets/layout) - Layout and positioning widgets
+- [Material Widgets](https://docs.flutter.dev/ui/widgets/material) - Material Design widgets
+- [Cupertino Widgets](https://docs.flutter.dev/ui/widgets/cupertino) - iOS-style widgets
+- [Custom Widget Development](https://docs.flutter.dev/development/ui/widgets-intro#creating-custom-widgets) - Creating reusable widgets
+
+### **State Management & Data Flow**
+- [State Management Approaches](https://docs.flutter.dev/data-and-backend/state-mgmt/intro) - Overview of state management options
+- [Provider Package](https://pub.dev/packages/provider) - Recommended state management solution
+- [Consumer Widget](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) - Provider pattern implementation
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) - Reactive state management
+- [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) - Widget state lifecycle management
+
+### **Asynchronous Programming & Networking**
+- [Asynchronous Programming in Dart](https://dart.dev/codelabs/async-await) - Comprehensive guide on async/await patterns
+- [Future Class](https://api.flutter.dev/flutter/dart-async/Future-class.html) - Dart class for asynchronous operations
+- [Stream Class](https://api.flutter.dev/flutter/dart-async/Stream-class.html) - Dart class for asynchronous data sequences
+- [Error Handling Best Practices](https://dart.dev/guides/language/effective-dart/usage#do-use-on-clauses-in-catch-statements-for-flow-control) - Effective error handling strategies
+- [HTTP Package](https://pub.dev/packages/http) - Dart package for HTTP networking operations
+- [Fetch Data from Internet](https://docs.flutter.dev/cookbook/networking/fetch-data) - Flutter networking cookbook
+- [JSON Serialisation](https://docs.flutter.dev/data-and-backend/json) - Flutter guide on JSON data handling
+- [String Class Documentation](https://api.flutter.dev/flutter/dart-core/String-class.html) - Dart string manipulation reference
+
+## � **Firebase Integration & Cloud Services**
+- [Firebase Documentation](https://firebase.google.com/docs) - Comprehensive Firebase platform documentation
+- [FlutterFire Overview](https://firebase.flutter.dev/docs/overview) - Firebase integration for Flutter applications
+- [Firebase Core](https://firebase.flutter.dev/docs/core/overview) - Core Firebase SDK setup and configuration
+- [Firebase Options](https://firebase.flutter.dev/docs/core/options) - Platform-specific Firebase configuration
+- [Firebase Core Web](https://pub.dev/packages/firebase_core_web) - Firebase web platform support
+- [Cloud Firestore Web](https://pub.dev/packages/cloud_firestore_web) - Firestore web implementation
+- [Firebase Auth Web](https://pub.dev/packages/firebase_auth_web) - Authentication web support
+- [FlutterFire CLI](https://pub.dev/packages/flutterfire_cli) - Firebase configuration tool
+
+### **Authentication Services**
+- [Firebase Authentication](https://firebase.flutter.dev/docs/auth/overview) - User authentication and management
+- [Google Sign-In](https://firebase.flutter.dev/docs/auth/social#google) - Google OAuth integration
+- [google_sign_in Package](https://pub.dev/packages/google_sign_in) - Google Sign-In for Flutter
+- [google_sign_in_web](https://pub.dev/packages/google_sign_in_web) - Google Sign-In web support
+- [google_sign_in_platform_interface](https://pub.dev/packages/google_sign_in_platform_interface) - Platform interface
+- [googleapis_auth](https://pub.dev/packages/googleapis_auth) - Google APIs authentication
+- [Anonymous Authentication](https://firebase.flutter.dev/docs/auth/anonymous) - Anonymous user authentication
+- [firebase_auth_mocks](https://pub.dev/packages/firebase_auth_mocks) - Testing utilities for Firebase Authhis document provides a comprehensive catalogue of all technical references, documentation sources, and resources utilised in the development and testing of the Tech News application. These references support the application's sophisticated architecture, comprehensive testing suite (92 tests), and professional development practices with **150+ official documentation links** integrated throughout the codebase.
 
 ## 📱 **Mobile Application Development**
 
@@ -66,11 +127,11 @@ This document provides a comprehensive catalogue of all technical references, do
 ## 📱 **Advanced Mobile Features & Device Integration**
 
 ### **Voice & Speech Recognition**
-- [speech_to_text Plugin](https://pub.dev/packages/speech_to_text) - Voice input and speech recognition
-- [Speech Recognition Guide](https://docs.flutter.dev/cookbook/effects/speech-to-text) - Flutter speech-to-text cookbook
+- [speech_to_text Plugin](https://pub.dev/packages/speech_to_text) - Voice input and speech recognition APIs
+- [Speech Recognition Guide](https://docs.flutter.dev/cookbook/effects/speech-to-text) - Flutter speech-to-text implementation
 - [Microphone Access Guide](https://docs.flutter.dev/cookbook/plugins/speech-to-text) - Microphone permission and usage
 - [Speech Recognition Permissions](https://developer.android.com/reference/android/Manifest.permission#RECORD_AUDIO) - Android microphone permissions
-- [iOS Speech Framework](https://developer.apple.com/documentation/speech) - iOS speech recognition capabilities
+- [iOS Speech Framework](https://developer.apple.com/documentation/speech) - iOS speech recognition APIs
 - [Audio Processing Guide](https://dart.dev/guides/libraries/library-tour#dartio) - Dart audio processing documentation
 
 ### **Camera & QR Code Scanning**
@@ -92,23 +153,39 @@ This document provides a comprehensive catalogue of all technical references, do
 ### **Local Storage & Database Integration**
 - [SQLite Integration Guide](https://docs.flutter.dev/cookbook/persistence/sqlite) - Official SQLite integration cookbook
 - [sqflite Plugin](https://pub.dev/packages/sqflite) - SQLite database operations
+- [Drift Package](https://pub.dev/packages/drift) - Type-safe SQLite database toolkit
 - [Key-Value Storage](https://docs.flutter.dev/cookbook/persistence/key-value) - Local storage best practices
 - [Database Best Practices](https://dart.dev/guides/libraries/library-tour#dartio) - Dart I/O and database guidelines
 - [cached_network_image](https://pub.dev/packages/cached_network_image) - Network image caching
 - [shared_preferences](https://pub.dev/packages/shared_preferences) - Key-value storage
 - [sqflite_common_ffi](https://pub.dev/packages/sqflite_common_ffi) - Desktop SQLite support
+- [path_provider](https://pub.dev/packages/path_provider) - Platform-specific file system paths
+- [path Package](https://pub.dev/packages/path) - Path manipulation utilities
 
-### **Content Enhancement & AI Integration**
-- [Firecrawl Service Documentation](https://firecrawl.dev/) - Web content extraction and enhancement
-- [AI Content Processing](https://docs.flutter.dev/cookbook/effects/speech-to-text) - Speech-to-text and AI integration
+### **Content Enhancement & API Integration**
+- [Firecrawl API Documentation](https://docs.firecrawl.dev/api-reference/introduction) - RESTful API for web content extraction
+- [Firecrawl REST API Reference](https://docs.firecrawl.dev/api-reference/endpoint/scrape) - HTTP endpoints for web scraping services
+- [Firecrawl API Authentication](https://docs.firecrawl.dev/api-reference/authentication) - API key management and secure access
+- [Firecrawl Search Endpoint](https://docs.firecrawl.dev/api-reference/endpoint/search) - Search and content retrieval APIs
+- [Web Content Processing APIs](https://docs.flutter.dev/cookbook/networking/fetch-data) - HTTP-based content processing
 - [Background Processing](https://docs.flutter.dev/development/platform-integration/platform-channels) - Native platform integration
 - [HTTP Client Best Practices](https://dart.dev/guides/libraries/library-tour#httpclient) - HTTP client implementation guidelines
 
 ### **Notifications & Background Processing**
 - [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) - Local notification system
+- [Firebase Messaging](https://firebase.flutter.dev/docs/messaging/overview) - Push notification services
 - [Notification Channels](https://developer.android.com/training/notify-user/channels) - Android notification categories
 - [Background Processing](https://docs.flutter.dev/development/platform-integration/platform-channels) - Native platform integration
 - [Platform Channels](https://docs.flutter.dev/development/platform-integration/platform-channels) - Native platform communication
+- [Local Notification Service](https://pub.dev/packages/flutter_local_notifications) - Cross-platform notification handling
+
+### **Social Sharing & Communication**
+- [share_plus Package](https://pub.dev/packages/share_plus) - Native sharing functionality
+- [url_launcher Package](https://pub.dev/packages/url_launcher) - External URL and app launching
+- [sms_advanced Package](https://pub.dev/packages/sms_advanced) - SMS and messaging integration
+- [Native Sharing Patterns](https://docs.flutter.dev/cookbook/plugins/native-plugins) - Platform-specific sharing
+- [iOS Messages Integration](https://developer.apple.com/documentation/messageui) - iOS native messaging
+- [Android Intent Sharing](https://developer.android.com/training/sharing/shareaction) - Android sharing intents
 
 ## 🎨 **User Interface & Design Systems**
 
@@ -146,6 +223,10 @@ This document provides a comprehensive catalogue of all technical references, do
 - [Search Patterns](https://docs.flutter.dev/cookbook/design/search-intro) - Search implementation guide
 - [SnackBar](https://api.flutter.dev/flutter/material/SnackBar-class.html) - Temporary message display
 - [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html) - Loading indicator widget
+- [Dismissible Widget](https://api.flutter.dev/flutter/widgets/Dismissible-class.html) - Swipe-to-dismiss functionality
+- [AlertDialog](https://api.flutter.dev/flutter/material/AlertDialog-class.html) - Modal dialog implementation
+- [Consumer Widget](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) - Provider pattern consumer
+- [NestedScrollView](https://api.flutter.dev/flutter/widgets/NestedScrollView-class.html) - Advanced scrolling behaviour
 
 ## 🧪 **Comprehensive Testing Framework**
 
@@ -157,7 +238,7 @@ This document provides a comprehensive catalogue of all technical references, do
 - [flutter_test Package](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html) - Core Flutter testing framework
 - [WidgetTester](https://api.flutter.dev/flutter/flutter_test/WidgetTester-class.html) - Widget testing utilities
 - [TestWidgets](https://api.flutter.dev/flutter/flutter_test/testWidgets.html) - Widget testing function
-- [Performance Best Practices](https://docs.flutter.dev/perf/best-practices) - Performance optimization guide
+- [Performance Best Practices](https://docs.flutter.dev/perf/best-practices) - Performance optimisation guide
 
 ### **Testing Methodologies & Patterns**
 - [Unit Testing](https://docs.flutter.dev/testing/unit-tests) - Individual component testing
@@ -172,6 +253,14 @@ This document provides a comprehensive catalogue of all technical references, do
 - [network_image_mock](https://pub.dev/packages/network_image_mock) - Network image testing utilities
 - [fake_async](https://pub.dev/packages/fake_async) - Asynchronous operation testing control
 - [Matcher](https://api.flutter.dev/flutter/package-matcher_matcher/Matcher-class.html) - Test assertion utilities
+- [flutter_lints](https://pub.dev/packages/flutter_lints) - Lint rules for Flutter
+- [Test Setup Patterns](https://docs.flutter.dev/testing/unit-tests) - Test environment configuration
+
+### **Testing Infrastructure & Development Tools**
+- [Flutter DevTools](https://docs.flutter.dev/development/tools/devtools/overview) - Development and debugging tools
+- [Hot Reload](https://docs.flutter.dev/development/tools/hot-reload) - Development productivity features
+- [Widget Inspector](https://docs.flutter.dev/development/tools/flutter-inspector) - UI debugging tools
+- [Performance Profiling](https://docs.flutter.dev/perf/ui-performance) - Performance analysis tools
 
 ### **Advanced Testing Techniques**
 - [Golden File Testing](https://docs.flutter.dev/testing/ui-testing#golden-file-testing) - UI appearance regression testing
@@ -206,11 +295,20 @@ This document provides a comprehensive catalogue of all technical references, do
 - [Web-Specific Considerations](https://docs.flutter.dev/platform-integration/web/web-images) - Web platform limitations and solutions
 - [Platform Views for Web](https://docs.flutter.dev/platform-integration/web/web-images#using-html-elements) - HTML element integration
 - [Web Deployment](https://docs.flutter.dev/deployment/web) - Web application deployment strategies
+- [universal_html Package](https://pub.dev/packages/universal_html) - Cross-platform HTML APIs
 
 ### **Cross-Platform Compatibility**
 - [Platform Adaptation](https://docs.flutter.dev/resources/platform-adaptations) - Platform-specific UI adaptations
 - [Platform Channels](https://docs.flutter.dev/development/platform-integration/platform-channels) - Native platform communication
 - [Conditional Imports](https://dart.dev/guides/libraries/create-library-packages#conditionally-importing-and-exporting-library-files) - Platform-specific code organisation
+
+### **Desktop Development & CMake**
+- [Flutter Desktop Development](https://docs.flutter.dev/desktop) - Desktop application development
+- [CMake Build System](https://docs.flutter.dev/platform-integration/desktop) - Cross-platform build configuration
+- [Linux Desktop Development](https://docs.flutter.dev/platform-integration/linux/setup) - Linux platform setup
+- [Windows Desktop Development](https://docs.flutter.dev/deployment/windows) - Windows desktop deployment
+- [macOS Desktop Development](https://docs.flutter.dev/deployment/macos) - macOS desktop deployment
+- [Desktop Platform Support](https://docs.flutter.dev/desktop) - Multi-platform desktop development
 
 ## � **Performance Optimisation & Analytics**
 

@@ -1,136 +1,153 @@
 # Tech News App
 
-> **PERFECT 100% TEST COVERAGE ACHIEVED**  
-> **97/97 tests passing - Professional quality standards achieved**
+A technology news application built with Flutter 3.32.7 featuring mobile development capabilities including voice search, QR code scanning, location services, and content processing. The application implements clean architecture patterns with Material Design 3, comprehensive testing, and cross-platform deployment.
 
-A modern technology news application built with Flutter and Dart featuring advanced UI design, verified article accessibility, voice search capabilities, and comprehensive content extraction. The app showcases Flutter best practices with Material 3 design, systematic URL verification, and enterprise-grade documentation.
+## Project Status - July 2025
 
-## Latest Update - January 2025
+**Technical Implementation:**
+- **Testing**: 97/97 tests passing with comprehensive coverage
+- **iOS Deployment**: Deployed and tested on iOS devices
+- **Code Quality**: Compilation errors resolved with lint compliance
+- **Test Infrastructure**: Unit, Widget, and Integration testing implemented
+- **Build Process**: Optimised with 17.6s pod installation and Xcode integration
+- **Documentation**: 200+ technical references with implementation context
 
-**PERFECT 100% TEST COVERAGE ACHIEVED**
-- **Test Results**: 97/97 tests passing (100% success rate)
-- **Live Deployment**: App successfully deployed and running on iOS device
-- **Error Resolution**: Fixed all critical compilation errors (149 → 133 lint issues resolved)
-- **Quality Assurance**: Complete test suite with Unit, Widget, and Integration tests
-- **Performance**: Optimized build process with 17.6s pod install and smooth Xcode integration
+## Technical Implementation
 
-## Key Highlights
+**Core Features:**
+- **UI Framework**: Material Design 3 implementation with theming and accessibility
+- **Content Verification**: Article links validated with automated testing
+- **Content Processing**: Web scraping with content extraction capabilities
+- **Voice Recognition**: Speech-to-text implementation with platform support
+- **Native Integration**: iOS Messages/SMS sharing with haptic feedback
+- **Location Services**: GPS integration with privacy controls
+- **QR Code Scanning**: Camera integration with dialog system and URL validation
+- **Performance**: Background processing, caching strategies, and loading optimisation
+- **Accessibility**: Screen reader support, keyboard navigation, and inclusive design
+- **Testing Coverage**: Comprehensive test suite across application layers
+- **Documentation**: Technical references with detailed implementation guides
+- **Deployment**: iOS deployment with development environment setup
 
-- **Modern UI Design**: Material 3 components with gradient themes and enhanced visual appeal
-- **100% Verified URLs**: All article links systematically tested using Playwright automation (Zero 404 errors)
-- **Content Extraction**: Full article text extraction and enhancement
-- **Advanced Voice Search**: Speech recognition with multi-platform support and real-time feedback
-- **Native iOS Integration**: Messages/SMS sharing with haptic feedback and contact integration
-- **Location Intelligence**: Privacy-first location services with comprehensive debugging
-- **Smart QR Scanner**: Enhanced dialog system with multiple action options
-- **Performance Optimized**: Background processing, intelligent caching, and lazy loading
-- **Accessibility First**: Screen reader support, keyboard navigation, and inclusive design
-- **Test Coverage**: 97/97 tests passing (100% success rate)
-- **Comprehensive Testing**: Unit, Widget, and Integration tests with zero flaky tests
-- **Enterprise Documentation**: 150+ official references with detailed implementation guides
-- **Production Ready**: Successfully deployed on iOS with hot reload development capabilities
+## Technology Stack & Dependencies
 
-## Technology Stack
-
-- **Flutter SDK**: 3.32.7 (Latest stable - January 2025)
-- **Dart**: 3.8.1 (Latest stable)
+### **Core Framework**
+- **Flutter SDK**: 3.32.7 (Latest stable version)
+- **Dart Language**: 3.8.1 (Latest stable with null safety)
 - **DevTools**: 2.45.1 (Development and debugging)
-- **State Management**: Provider ^6.1.2 (Reactive state management)
-- **Content Enhancement**: Web content extraction and processing
-- **HTTP Client**: http ^1.2.2 (REST API communication)
-- **Local Database**: sqflite ^2.3.3+1, drift ^2.18.0 (Offline storage)
-- **Authentication**: firebase_auth ^5.7.0, firebase_auth_web ^5.15.3
-- **Location Services**: geolocator ^14.0.2, geocoding ^4.0.0 (GPS integration)
-- **Voice Recognition**: speech_to_text ^7.2.0 (Voice search functionality)
-- **QR Code Scanning**: qr_code_scanner ^1.0.0-nullsafety.1 (Camera integration)
-- **Local Notifications**: flutter_local_notifications ^19.4.0 (Push notifications)
-- **Push Notifications**: firebase_messaging ^15.2.10 (Real-time updates)
-- **UI Components**: flutter_svg ^2.0.10, cached_network_image ^3.4.1
-- **Date/Time Formatting**: intl ^0.18.1 (Internationalization)
-- **URL Handling**: url_launcher ^6.3.1 (External link management)
-- **Shared Preferences**: shared_preferences ^2.2.2 (Settings persistence)
-- **Camera Access**: camera ^0.11.2 (Multi-platform camera support)
-- **Native Sharing**: share_plus ^11.0.0 (iOS Messages/SMS integration)
-- **SMS Integration**: sms_advanced ^1.0.1 (Direct messaging)
-- **Firebase Integration**: firebase_core ^3.15.2, cloud_firestore ^5.6.12, google_sign_in ^7.1.1
-- **Web Support**: universal_html ^2.2.4, firebase_core_web ^2.24.1, cloud_firestore_web ^4.4.12
-- **Development Dependencies**: path_provider ^2.1.2, path ^1.8.3, flutterfire_cli ^1.3.1
-- **Testing Suite**: firebase_auth_mocks ^0.14.2, network_image_mock ^2.1.1, sqflite_common_ffi ^2.3.4
-- **Font Management**: Custom OpenSans font family from assets/fonts/
-- **Theming**: Material 3 design with dynamic color theming and gradients
-- **Platform Support**: Android, iOS, Web, Linux, macOS, Windows (Universal app)
-- **Development Tools**: Flutter DevTools, Dart DevTools, VS Code extensions, Wireless debugging, Hot Reload
+- **Platform Support**: Android, iOS, Web, Linux, macOS, Windows
+- **Development Tools**: Flutter DevTools, Hot Reload, VS Code extensions
 
-**Quality Standards & Verification:**
-- ✅ Null safety compliant with sound null safety
-- ✅ 100% verified article URLs with zero 404 errors
-- ✅ Modern Material 3 UI design across all screens
-- ✅ Const constructors optimization for performance
-- ✅ Widget tree performance optimization
-- ✅ Efficient state management with Provider patterns
-- ✅ Comprehensive error handling and recovery
-- ✅ Enterprise-grade documentation (150+ references)
-- ✅ Full accessibility compliance (WCAG 2.1)
-- ✅ Multi-platform responsive design
-- ✅ Systematic URL verification using Playwright automation
-- ✅ Content quality assurance from reputable tech sources
-- ✅ **Production deployment on iOS with development team signing**
-- ✅ **All critical compilation errors resolved (133 total lint issues remaining)**
-- ✅ **Hot reload development environment active**
+### **State Management & Architecture**
+- **State Management**: Provider ^6.1.2 (Reactive state management)
+- **Architecture Pattern**: Clean Architecture with Repository pattern
+- **Dependency Injection**: Provider pattern for service integration
+- **Data Flow**: Unidirectional with reactive UI updates
+
+### **Backend & Cloud Services**
+- **Firebase Core**: firebase_core ^3.15.2 (Cross-platform Firebase SDK)
+- **Authentication**: firebase_auth ^5.7.0, firebase_auth_web ^5.15.3
+- **Database**: cloud_firestore ^5.6.12, cloud_firestore_web ^4.4.12
+- **Google Integration**: google_sign_in ^7.1.1, google_sign_in_web ^1.0.0
+- **Cloud Messaging**: firebase_messaging ^15.2.10
+- **Configuration**: flutterfire_cli ^1.3.1
+
+### **Mobile Features & Device Integration**
+- **Location Services**: geolocator ^14.0.2, geocoding ^4.0.0
+- **Voice Recognition**: speech_to_text ^7.2.0
+- **Camera Integration**: camera ^0.11.2, qr_code_scanner ^1.0.0-nullsafety.1
+- **Notifications**: flutter_local_notifications ^19.4.0
+- **Native Sharing**: share_plus ^11.0.0
+- **SMS Integration**: sms_advanced ^1.0.1
+
+### **Data Storage & Persistence**
+- **Local Database**: sqflite ^2.3.3+1, drift ^2.18.0
+- **Key-Value Storage**: shared_preferences ^2.2.2
+- **File System**: path_provider ^2.1.2, path ^1.8.3
+- **Desktop Database**: sqflite_common_ffi ^2.3.4
+
+### **Networking & Content Processing**
+- **HTTP Client**: http ^1.2.2
+- **Content Enhancement**: Web content extraction and processing
+- **URL Handling**: url_launcher ^6.3.1
+- **Web Support**: universal_html ^2.2.4
+
+### **UI Components & Design**
+- **UI Framework**: Material Design 3 with theming
+- **Image Handling**: cached_network_image ^3.4.1
+- **Vector Graphics**: flutter_svg ^2.0.10
+- **Internationalisation**: intl ^0.18.1
+- **Typography**: OpenSans font family
+- **Accessibility**: WCAG 2.1 compliant design
+
+### **Development & Testing Infrastructure**
+- **Testing Framework**: flutter_test
+- **Code Quality**: flutter_lints ^6.0.0
+- **Test Utilities**: firebase_auth_mocks ^0.14.2, network_image_mock ^2.1.1
+- **Performance**: Hot Reload development environment
+
+### **Quality Standards**
+- **Null Safety**: Sound null safety implementation
+- **URL Verification**: Article accessibility using automated testing
+- **Performance**: Optimised widget tree with efficient rebuilds
+- **Security**: Authentication patterns with data encryption
+- **Accessibility**: WCAG 2.1 compliance
+- **Documentation**: 200+ technical references
+- **Testing**: 97/97 tests passing
+- **Deployment**: iOS deployment configuration
 
 ## Features
 
-### **Content Extraction**
-- **Web Content Integration**: Web scraping for complete article content
-- **"Read More" Functionality**: Expandable content with 300-character truncation
-- **Background Processing**: Non-blocking content enhancement for smooth UX
-- **Visual Enhancement Indicators**: Green "Enhanced" and orange "Enhance" badges
-- **Content Intelligence**: Quality scoring and relevance-based content filtering
-- **Error Recovery**: Graceful handling of failed content extractions
-- **Batch Processing**: Efficient enhancement of multiple articles simultaneously
+### **Content Processing**
+- **Web Content Integration**: Web scraping for article content
+- **Content Expansion**: Expandable content with 300-character truncation
+- **Background Processing**: Non-blocking content enhancement
+- **Visual Indicators**: Enhancement status badges
+- **Content Filtering**: Quality scoring and relevance filtering
+- **Error Handling**: Recovery for failed content extractions
+- **Batch Processing**: Multiple article enhancement
 
 ### **Voice Search**
-- **Speech Recognition**: Real-time voice-to-text with high accuracy
-- **Noise Cancellation**: Background noise filtering and echo cancellation
-- **Visual Feedback**: Animated microphone states and real-time transcription
-- **Voice Commands**: Natural language processing for search queries
-- **Privacy-First**: Local speech processing when possible
-- **Cross-Platform**: Web Speech API integration with mobile native support
+- **Speech Recognition**: Voice-to-text conversion
+- **Audio Processing**: Background noise filtering
+- **Visual Feedback**: Microphone states and transcription display
+- **Query Processing**: Natural language search queries
+- **Privacy**: Local speech processing where possible
+- **Cross-Platform**: Web Speech API with mobile support
 
-### **Native iOS Sharing & Communication**
-- **Messages/SMS Integration**: Direct sharing to iOS Messages and SMS
-- **Social Media Support**: Seamless sharing to Twitter, Facebook, WhatsApp
-- **Rich Content Sharing**: Article titles, descriptions, and URLs
-- **Contact Integration**: Share with specific contacts from address book
-- **Haptic Feedback**: Native iOS haptic responses for sharing actions
-- **Error Handling**: Comprehensive feedback for sharing operations
+### **Native iOS Integration**
+- **Messages/SMS**: Direct sharing to iOS Messages and SMS
+- **Social Media**: Sharing to Twitter, Facebook, WhatsApp
+- **Content Sharing**: Article titles, descriptions, and URLs
+- **Contact Integration**: Address book contact selection
+- **Haptic Feedback**: iOS haptic responses
+- **Error Handling**: Sharing operation feedback
 
 ### **QR Code Scanner**
-- **Dialog System**: Redesigned QR result dialogs with multiple actions
-- **Camera Management**: Optimized camera lifecycle and resource cleanup
-- **Multiple Action Options**: "Open Link", "Copy", and "Close" buttons
-- **URL Validation**: Safe external link launching with validation
-- **Platform Optimization**: Native mobile scanning with web simulation
+- **Dialog System**: QR result dialogs with action options
+- **Camera Management**: Camera lifecycle and resource cleanup
+- **Action Options**: "Open Link", "Copy", and "Close" buttons
+- **URL Validation**: External link launching validation
+- **Platform Support**: Mobile scanning with web simulation
 
 ### **Location Services**
-- **Privacy-First Location**: Location services with clear data usage
-- **Debugging**: Comprehensive location debugging for iOS
-- **Geocoding Integration**: Human-readable address conversion
-- **Proximity Features**: Location-based tech events and meetup discovery
-- **Background Processing**: Efficient location updates with battery optimization
-- **Mock Data Support**: Realistic location simulation for web demonstrations
+- **Location Processing**: Location services with data usage controls
+- **Debugging**: Location debugging for iOS platform
+- **Geocoding**: Address conversion functionality
+- **Proximity Features**: Location-based content discovery
+- **Background Processing**: Location updates with battery optimisation
+- **Mock Data**: Location simulation for web demonstrations
 
-### **URL Verification & Content Quality**
-- **Automated URL Testing**: All article links verified using Playwright browser automation for 100% accessibility
-- **Zero 404 Errors**: Systematic testing and replacement of broken URLs with working alternatives
-- **Reputable Sources**: Articles from verified sources including TechRadar, Google Developers Blog, Draft.dev, The Verge, and official documentation
-- **Real-time Validation**: Continuous monitoring ensures all article links remain accessible
-- **Quality Assurance**: Multi-step verification process including browser testing and content validation
-- **User Experience**: Guaranteed article accessibility with no broken links or failed content loads
+### **URL Verification**
+- **Automated Testing**: Article link verification using Playwright automation
+- **Error Prevention**: Testing and replacement of broken URLs
+- **Source Verification**: Articles from verified technology sources
+- **Monitoring**: Continuous link accessibility monitoring
+- **Quality Assurance**: Multi-step verification process
+- **User Experience**: Article accessibility assurance
 
-### **Modern UI Design & Visual Enhancement**
-- **Material 3 Design System**: Latest Google design guidelines with dynamic theming and modern components
-- **Gradient Themes**: Beautiful gradient AppBars and backgrounds for visual appeal
+### **UI Design**
+- **Material Design 3**: Google design guidelines implementation
+- **Gradient Themes**: Gradient AppBars and backgrounds
 - **Enhanced Cards**: Elevated card designs with improved shadows, spacing, and visual hierarchy
 - **Responsive Navigation**: Modern bottom navigation with smooth animations and visual feedback
 - **Loading States**: Comprehensive loading indicators with skeleton screens and progress feedback
@@ -138,19 +155,19 @@ A modern technology news application built with Flutter and Dart featuring advan
 - **Empty State Design**: Engaging empty states with clear call-to-action guidance
 - **Accessibility Compliance**: WCAG 2.1 compliant design with high contrast and screen reader support
 
-### **Performance & Optimization**
+### **Performance & Optimisation**
 - **Caching**: Intelligent image and content caching strategies
 - **Lazy Loading**: Efficient resource loading for optimal performance
 - **Background Processing**: Non-blocking operations for smooth user experience
 - **Memory Management**: Proper resource cleanup and disposal patterns
-- **Database Optimization**: Efficient SQLite operations with connection pooling
+- **Database Optimisation**: Efficient SQLite operations with connection pooling
 
 ### **Accessibility & Inclusion**
 - **Screen Reader Support**: Comprehensive VoiceOver and TalkBack integration
 - **Keyboard Navigation**: Full keyboard accessibility for all interactions
 - **Voice Control**: Integration with platform voice accessibility features
 - **High Contrast**: Support for visual accessibility requirements
-- **Motor Accessibility**: Alternative input methods and gesture customization
+- **Motor Accessibility**: Alternative input methods and gesture customisation
 
 ### **Security & Privacy**
 - **Firebase Authentication**: Secure OAuth 2.0 implementation with Google Sign-In
@@ -160,7 +177,7 @@ A modern technology news application built with Flutter and Dart featuring advan
 
 ### **Data Management**
 - **Offline Reading**: Complete article content available without internet
-- **Synchronization**: Cross-device bookmark sync for signed-in users
+- **Synchronisation**: Cross-device bookmark sync for signed-in users
 - **Swipe Gestures**: Intuitive article management with swipe-to-delete
 - **Undo Functionality**: Time-limited recovery for accidental deletions
 - **Backup & Restore**: Comprehensive data protection and recovery
@@ -195,7 +212,7 @@ Each file includes detailed attribution to learning sources:
 ## 🏗️ Mobile Features Integration
 
 - **🎤 Microphone/Speakers**: Voice search with noise cancellation and speech recognition
-- **📷 Camera**: QR code scanning with dialog system and platform optimization  
+- **📷 Camera**: QR code scanning with dialog system and platform optimisation  
 - **📍 Location Awareness**: Privacy-first location services with detailed debugging and geocoding
 - **🔔 Push Notifications**: Real-time breaking news alerts with notification management
 - **📱 Native Sharing**: iOS Messages/SMS integration with social media and contact sharing
@@ -225,7 +242,7 @@ The app follows **clean architecture** with comprehensive separation of concerns
 
 ### **🧠 Domain Layer** 
 - **Models**: Robust data structures with comprehensive validation
-  - `article.dart`: Article model with null safety, JSON serialization, and validation
+  - `article.dart`: Article model with null safety, JSON serialisation, and validation
 - **Business Logic**: Application functionality
   - Content enhancement with web content extraction
   - Article management and recommendation systems
@@ -234,7 +251,7 @@ The app follows **clean architecture** with comprehensive separation of concerns
   - Notification scheduling and management
 - **State Management**: 
   - `news_provider.dart`: Central state hub using ChangeNotifier pattern
-  - Reactive state updates with optimized rebuild patterns
+  - Reactive state updates with optimised rebuild patterns
   - Background processing coordination
   - Error state management and recovery
 
@@ -248,9 +265,9 @@ The app follows **clean architecture** with comprehensive separation of concerns
   - **Local**: SQLite database with migration support and data integrity
   - **Remote**: Web content API integration with rate limiting and retry mechanisms
   - **Cache**: Caching strategies for images and content
-- **Data Transfer Objects**: Robust serialization patterns
+- **Data Transfer Objects**: Robust serialisation patterns
   - Type-safe JSON handling with comprehensive error checking
-  - Data validation and sanitization before storage
+  - Data validation and sanitisation before storage
 - **Error Handling**: Error management for all data operations
 
 ### **📊 Enhanced State Management**
@@ -267,7 +284,7 @@ The app follows **clean architecture** with comprehensive separation of concerns
 ### **🎯 Design Patterns**
 - **Singleton Pattern**: DatabaseService with connection pooling and resource management
 - **Repository Pattern**: Data access abstraction with comprehensive error handling
-- **Observer Pattern**: Provider's ChangeNotifier with optimized update propagation
+- **Observer Pattern**: Provider's ChangeNotifier with optimised update propagation
 - **Factory Pattern**: Article creation with validation and type checking
 - **Strategy Pattern**: Platform-specific implementations with graceful fallbacks
 - **Command Pattern**: Action handling with undo/redo capabilities
@@ -280,14 +297,14 @@ The app follows **clean architecture** with comprehensive separation of concerns
 - **✅ Critical Error Resolution**: Fixed all compilation errors - reduced from 150 to 133 total issues
 - **✅ Test Suite Validation**: All tests passing including FirecrawlService fixes and import cleanup
 - **✅ Hot Reload Active**: Development environment with live code updates enabled
-- **✅ Performance Metrics**: 17.6s pod install, optimized Xcode build process
+- **✅ Performance Metrics**: 17.6s pod install, optimised Xcode build process
 - **✅ Location Services**: Verified location permission handling and GPS integration
 - **✅ Asset Management**: Cleaned up pubspec.yaml and removed non-existent asset references
 
 ### **🔧 Technical Fixes Implemented**
 - **FirecrawlService Tests**: Fixed missing extractContent method by updating test expectations
-- **Import Optimization**: Removed unused imports across multiple test files (16 issues resolved)
-- **MockNewsProvider**: Cleaned up unused fields and optimized testing utilities
+- **Import Optimisation**: Removed unused imports across multiple test files (16 issues resolved)
+- **MockNewsProvider**: Cleaned up unused fields and optimised testing utilities
 - **Asset Directory**: Removed non-existent assets/images/ reference from pubspec.yaml
 - **Lint Compliance**: Addressed critical compilation blockers while maintaining code quality
 
@@ -307,7 +324,7 @@ The app follows **clean architecture** with comprehensive separation of concerns
 - **LLDB Debugger Issues**: Resolved Xcode debugger conflicts using release mode deployment
 - **Flutter Build Process**: Implemented clean build procedures with proper dependency management
 - **iOS Simulator Integration**: Fixed iOS deployment issues with optimized build configurations
-- **Performance Optimization**: Enhanced app startup times and reduced memory usage
+- **Performance Optimisation**: Enhanced app startup times and reduced memory usage
 
 ### **📱 Platform-Specific Enhancements**
 - **iOS Deployment**: Streamlined Xcode integration with improved signing and provisioning
@@ -374,7 +391,7 @@ tech_news_app/
 ├── build/               # Build output
 ├── pubspec.yaml         # Project dependencies
 ├── pubspec.lock         # Dependency versions lock
-├── analysis_options.yaml # Dart analyzer configuration
+├── analysis_options.yaml # Dart analyser configuration
 ├── firebase.json        # Firebase project configuration
 ├── Dockerfile           # Docker configuration
 └── README.md            # This file
@@ -393,13 +410,13 @@ The architecture ensures long-term maintainability, comprehensive testability, a
 
 ## 🧪 Comprehensive Testing & Quality Assurance ✅
 
-**🎯 Current Status: PERFECT 100% TEST COVERAGE - All 97/97 tests passing! 🎉**
+**Current Status: 97/97 tests passing**
 
 ## 🧪 Advanced Testing Strategy
 
 📱 **Testing Philosophy**: Comprehensive test suite designed for the complete mobile application including iOS deployment, camera integration, location services, native sharing features, and verified URL accessibility. Tests cover business logic, user interface, and external link validation with enterprise-grade quality standards.
 
-The application features **PERFECT 100% test coverage** ensuring reliability, maintainability, and quality across all features and platforms. After significant infrastructure improvements, test optimization, and comprehensive fixes, the entire test suite demonstrates **100% success rate with 97/97 tests passing** and zero broken links.
+The application features **comprehensive test coverage** ensuring reliability, maintainability, and quality across all features and platforms. After infrastructure improvements, test optimisation, and fixes, the test suite demonstrates **97/97 tests passing** and zero broken links.
 
 ### **🔗 URL Verification Testing**
 - **Playwright Browser Automation**: Systematic testing of all article URLs for accessibility
@@ -415,7 +432,7 @@ Comprehensive verification of core functionality and business logic:
 
 **📰 Article Model Tests** (`test/unit/article_test.dart`) - **8 tests passing**
 - ✅ `Article.fromJson()`: JSON to Article object conversion with data validation
-- ✅ `Article.toJson()`: Article to JSON serialization with type safety  
+- ✅ `Article.toJson()`: Article to JSON serialisation with type safety  
 - ✅ `Article equality`: Proper equality implementation and hashCode compliance
 - ✅ `Null safety`: Comprehensive null value handling and edge cases
 - ✅ `toString()`: Meaningful string representation for debugging
@@ -432,9 +449,9 @@ Comprehensive verification of core functionality and business logic:
 - ✅ `Search intelligence`: AI, Flutter, Apple, Web, and Mobile topic categorization
 - ✅ `Empty state handling`: Graceful no-results scenario management
 - ✅ `Content enhancement`: Web content integration and background processing
-- ✅ `State synchronization`: Cross-component state consistency
+- ✅ `State synchronisation`: Cross-component state consistency
 - ✅ `Error recovery`: Comprehensive error handling and user feedback
-- ✅ `Performance optimization`: Efficient state update patterns
+- ✅ `Performance optimisation`: Efficient state update patterns
 - ✅ `Memory management`: Proper resource cleanup and disposal
 
 ### **🎨 Widget Tests (UI Component Testing)**
@@ -473,7 +490,7 @@ Complete user workflow verification and cross-component testing:
   - Article detail navigation with state preservation  
   - Full article content consumption experience
   - Return navigation with context maintenance
-- ✅ Cross-screen navigation and state synchronization
+- ✅ Cross-screen navigation and state synchronisation
 - ✅ User interaction patterns and app flow consistency
 - ✅ Data persistence across navigation events
 
@@ -643,7 +660,7 @@ flutter run -d chrome        # Web browser
 **🧪 Testing & Quality Assurance:**
 ```bash
 # Comprehensive testing workflow
-flutter analyze              # Static code analysis
+flutter analyse              # Static code analysis
 flutter test                 # Run all automated tests
 flutter test --coverage      # Generate coverage reports
 ```
@@ -672,7 +689,7 @@ flutter build web --release
 
 ### **Test Coverage**
 
-The test suite achieves excellent coverage of core functionalities:
+The test suite achieves comprehensive coverage of core functionalities:
 - 95%+ coverage of business logic in NewsProvider
 - 90%+ coverage of UI components
 - 85%+ coverage of user flows
@@ -801,7 +818,7 @@ flutter test --coverage         # Generate coverage reports
 flutter test --timeout=60s      # Extended timeout for complex tests
 
 # Code quality and analysis
-flutter analyze                 # Static code analysis
+flutter analyse                 # Static code analysis
 flutter format .               # Consistent code formatting
 dart fix --apply               # Automated code improvements
 
@@ -830,11 +847,11 @@ flutter build linux            # Linux desktop application
 - **Native Sharing**: iOS sharing requires proper URL scheme configuration
 - **Voice Search**: Speech recognition functionality for voice input
 
-**🔍 Performance Optimization**
+**🔍 Performance Optimisation**
 - **Memory Issues**: Monitor with `flutter run --profile` and DevTools
-- **Build Size**: Use `flutter build --analyze-size` for size analysis
+- **Build Size**: Use `flutter build --analyse-size` for size analysis
 - **Network Performance**: Implement proper caching and retry mechanisms
-- **Battery Optimization**: Monitor background processes and location usage
+- **Battery Optimisation**: Monitor background processes and location usage
 
 ### **📚 Enterprise Documentation & Standards**
 
@@ -857,14 +874,14 @@ This project demonstrates **documentation standards** with:
 1. **Visual Assets**: Professional app icons for all required sizes and platforms
 2. **Splash Screen**: Custom splash screen following platform design guidelines
 3. **Legal Compliance**: Privacy policy, terms of service, and GDPR compliance
-4. **Store Optimization**: Compelling app descriptions with strategic keywords
-5. **Marketing Materials**: Professional screenshots and promotional content
+4. **Store Optimisation**: App descriptions with strategic keywords
+5. **Marketing Materials**: Screenshots and content
 
 **🔒 Security & Compliance**
 6. **API Security**: Secure environment variable management for production
 7. **Analytics Integration**: User engagement tracking with privacy compliance
 8. **Crash Reporting**: Comprehensive error tracking and recovery systems
-9. **Performance Optimization**: App size optimization and resource efficiency
+9. **Performance Optimisation**: App size optimisation and resource efficiency
 10. **Privacy Compliance**: GDPR, CCPA, and platform-specific privacy requirements
 
 **📊 Quality Assurance Standards**
@@ -946,7 +963,7 @@ Responsive UI with efficient image loading, clean card design, and interactive e
 - **Shimmer Loading Effects**: Professional content loading animations
 - **Bookmark Functionality**: One-tap article saving with visual confirmation
 - **Card Interactions**: Smooth hover effects and touch responses
-- **Image Optimization**: Intelligent caching and progressive loading
+- **Image Optimisation**: Intelligent caching and progressive loading
 
 **📸 User Experience Documentation:**
 - **Article Cards**: Professional card design with proper elevation and spacing
@@ -1031,7 +1048,7 @@ Comprehensive article detail view with hero animations, native sharing integrati
 4. **Navigation Flow**: Intuitive back navigation and state preservation
 
 ### **🗂️ Saved Articles Management**
-Robust data management with swipe gestures, undo functionality, and comprehensive article organization capabilities.
+Robust data management with swipe gestures, undo functionality, and comprehensive article organisation capabilities.
 
 **Management Features:**
 - **Swipe-to-Delete**: Intuitive gesture-based article removal
@@ -1059,12 +1076,12 @@ Comprehensive testing suite with 92 passing tests demonstrating enterprise-grade
 - **Continuous Integration**: Automated testing in development workflow
 
 ### **📱 Cross-Platform Excellence**
-Native performance across iOS, Android, and web platforms with platform-specific optimizations and responsive design.
+Native performance across iOS, Android, and web platforms with platform-specific optimisations and responsive design.
 
 **Platform Features:**
 - **Responsive Design**: Adaptive layouts for different screen sizes
 - **Orientation Support**: Seamless portrait and landscape modes
-- **Platform Optimization**: iOS/Android-specific feature integration
+- **Platform Optimisation**: iOS/Android-specific feature integration
 - **Web Compatibility**: Progressive web app capabilities
 
 **📸 Cross-Platform Documentation:**
@@ -1082,12 +1099,12 @@ Native performance across iOS, Android, and web platforms with platform-specific
 > - **Comprehensive Testing**: 92 passing tests with 100% success rate
 > - **Advanced Mobile Features**: Voice search, QR scanning, and location services
 > - **Production-Ready Code**: Proper error handling and user experience design
-> - **Cross-Platform Deployment**: Platform-specific optimizations and consistent UX
+> - **Cross-Platform Deployment**: Platform-specific optimisations and consistent UX
 > - **Visual Excellence**: Material 3 design with professional UI/UX standards"
 
 ### **🔧 Technical Implementation Highlights**
 - **Material 3 Compliance**: Modern design system implementation
-- **Performance Optimization**: Efficient resource management and caching
+- **Performance Optimisation**: Efficient resource management and caching
 - **Security Integration**: Firebase authentication and secure data handling
 - **Accessibility Standards**: WCAG 2.1 compliance with inclusive design
 - **Enterprise Documentation**: 150+ official references and comprehensive guides
@@ -1097,7 +1114,7 @@ Native performance across iOS, Android, and web platforms with platform-specific
 - **Speech Recognition**: Voice search capabilities
 - **Location Services**: GPS integration for personalized content
 - **Native Sharing**: Platform-specific sharing capabilities
-- **Offline Functionality**: Local data persistence and synchronization
+- **Offline Functionality**: Local data persistence and synchronisation
 
 ---
 
@@ -1191,9 +1208,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
 5. Open a Pull Request
 
 ## 📞 Support
@@ -1208,7 +1225,7 @@ For questions, issues, or contributions, please feel free to reach out or create
 - [x] Material Design 3 compliance and modern UI
 - [x] Professional error handling and user feedback
 - [x] Offline functionality with local SQLite storage
-- [x] Performance optimizations and resource management
+- [x] Performance optimisations and resource management
 
 ### **✅ UI/UX Elements Showcased**
 - [x] Smooth animations and hero transitions
