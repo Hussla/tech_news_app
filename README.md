@@ -25,7 +25,7 @@ GitHub repo - (https://github.com/Hussla/tech_news_app)
 - [📚 Documentation](#-documentation)
 - [🔧 Recent Improvements](#-recent-improvements--debugging-solutions)
 - [📸 App Demonstration](#-app-demonstration--visual-guide)
-- [📄 License](#-license)
+
 
 ## 🎯 Features
 
@@ -703,7 +703,7 @@ Each file includes detailed attribution to learning sources:
 
 ### **📖 Documentation Resources**
 - [`docs/walkthrough.md`](docs/walkthrough.md): Complete architecture and implementation guide
-- [`docs/report.md`](docs/report.md): Comprehensive project analysis and insights
+- [`docs/report.md`](docs/report.md): Comprehensive project analysis/Publishing Report
 - [`docs/TESTING.md`](docs/TESTING.md): Detailed testing strategy and coverage analysis
 - [`docs/REFERENCES.md`](docs/REFERENCES.md): Complete list of 150+ official documentation references
 
